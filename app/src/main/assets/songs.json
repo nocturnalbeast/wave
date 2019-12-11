@@ -11,8 +11,13 @@
       "image":"rain"
     },{
       "name": "Clouds",
-      "song":"clouds",
-      "image":"clouds"
+      "song1":"song1",
+      "song2":"song2",
+      "song3":"song3",
+      "song4":"song4",
+      "song5":"song5",
+      "image":"clouds",
+      "playlistname": "playlist1"
     },
     {
       "name":"Fog",

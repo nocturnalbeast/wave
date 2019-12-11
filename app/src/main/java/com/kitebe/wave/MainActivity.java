@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
     TextView weatherTextView,temp,humidty,wind;
     TextView coordTextView;
     AudioManager audioManager;
-    MediaPlayer mediaPlayerRain;
+    MediaPlayer mediaPlayerRain,mediaPlayerRain2,mediaPlayerRain3,mediaPlayerRain4,mediaPlayerRain5;
     ImageView backgroungImage ;
     String jsonMain;
     Button getWeatherButton,equilizer;
 
     //song controller
-    ImageButton playSong;
+    Button playbutton;
     boolean isPlaying = false;
 
     boolean loop;
@@ -113,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("current location:",addresss);
                     try {
 //                        mediaPlayerRain.reset();
+                        mediaPlayerRain2.reset();
+                        mediaPlayerRain3.reset();
+                        mediaPlayerRain4.reset();
+                        mediaPlayerRain5.reset();
                         DownloadTask task = new DownloadTask();
 
 //                        String encodedCityName = URLEncoder.encode(addresss.toString(), "UTF-8");
@@ -234,7 +238,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"could not find weather Information :",Toast.LENGTH_LONG).show();
                 }
 
-                String string = loadJSONFromAsset();
+                String string = loadJSONFromAsset("songs.json");
+                String stringPL = loadJSONFromAsset("progress.json");
                 Context context = getApplicationContext();
 
                 Resources resources = context.getResources();
@@ -256,7 +261,12 @@ public class MainActivity extends AppCompatActivity {
 
                     if(jsonMain.equals(name)  ){
 
-                        String  song =jsonWeatherBackgroundContentPart.getString("song");
+                        String  song1 =jsonWeatherBackgroundContentPart.getString("song1");
+                        String  song2 =jsonWeatherBackgroundContentPart.getString("song2");
+                        String  song3 =jsonWeatherBackgroundContentPart.getString("song3");
+                        String  song4 =jsonWeatherBackgroundContentPart.getString("song4");
+                        String  song5 =jsonWeatherBackgroundContentPart.getString("song5");
+                        String  plname =jsonWeatherBackgroundContentPart.getString("playlistname");
 
                         // get image name from JSON
                         String image =jsonWeatherBackgroundContentPart.getString("image");
@@ -264,17 +274,43 @@ public class MainActivity extends AppCompatActivity {
                         // get resource id by image name
                         final int resourceImageId = resources.getIdentifier(image, "drawable", context.getPackageName());
 
-                        // get resource id by song name
-                        final int resourceSongId = resources.getIdentifier(song, "raw", context.getPackageName());
+                        // get resource id by song song
+                        final int resourceSongId1 = resources.getIdentifier(song1, "raw", context.getPackageName());
+                        final int resourceSongId2 = resources.getIdentifier(song2, "raw", context.getPackageName());
+                        final int resourceSongId3 = resources.getIdentifier(song3, "raw", context.getPackageName());
+                        final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
+                        final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
 
                         // get drawable by resourceImageid
                         Drawable drawable = resources.getDrawable(resourceImageId);
-                        Toast.makeText(getApplicationContext(),song,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),song1,Toast.LENGTH_SHORT).show();
 
                         // backgroungImage.setImageResource(R.drawable.rain);
                         backgroungImage.setImageDrawable(drawable);
-                        mediaPlayerRain = MediaPlayer.create(getApplicationContext(),resourceSongId);
+                        mediaPlayerRain = MediaPlayer.create(getApplicationContext(),resourceSongId1);
                         mediaPlayerRain.start();
+                        mediaPlayerRain2 = MediaPlayer.create(getApplicationContext(),resourceSongId2);
+                        mediaPlayerRain2.start();
+                        mediaPlayerRain3 = MediaPlayer.create(getApplicationContext(),resourceSongId3);
+                        mediaPlayerRain3.start();
+                        mediaPlayerRain4 = MediaPlayer.create(getApplicationContext(),resourceSongId4);
+                        mediaPlayerRain4.start();
+                        mediaPlayerRain5 = MediaPlayer.create(getApplicationContext(),resourceSongId5);
+                        mediaPlayerRain5.start();
+
+
+                        JSONObject progressJson = new JSONObject(stringPL);
+
+                        String playlistName=progressJson.getString("nmae");
+
+                        if (plname.equals(playlistName)) {
+                            String  progress1 =jsonWeatherBackgroundContentPart.getString("progress1");
+                            String  progress2 =jsonWeatherBackgroundContentPart.getString("progress2");
+                            String  progress3 =jsonWeatherBackgroundContentPart.getString("progress3");
+                            String  progress4 =jsonWeatherBackgroundContentPart.getString("progress4");
+                            String  progress5 =jsonWeatherBackgroundContentPart.getString("progress5");
+                        }
+
 
                     }
 
@@ -361,13 +397,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     //reading json from assets
-    public String loadJSONFromAsset() {
+    public String loadJSONFromAsset(String s) {
         Log.i("infunction","heloo");
         String json = null;
 
         try {
             Log.i("try","hi");
-            InputStream is = getAssets().open("songs.json");
+            InputStream is = getAssets().open(s);
 
             int size = is.available();
 
@@ -415,7 +451,7 @@ public class MainActivity extends AppCompatActivity {
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        playSong = findViewById(R.id.playPause);
+        playbutton= findViewById(R.id.playbutton);
 
 
         getWeatherButton=findViewById(R.id.getWeatherButton);
@@ -522,16 +558,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        playSong.setOnClickListener(new View.OnClickListener() {
+        playbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (mediaPlayerRain.isPlaying()) {
                     mediaPlayerRain.pause();
-                    playSong.setImageResource(R.drawable.playbutton);
+                    mediaPlayerRain2.pause();
+                    mediaPlayerRain3.pause();
+                    mediaPlayerRain4.pause();
+                    mediaPlayerRain5.pause();
+                    playbutton.setBackgroundResource(R.drawable.playbutton);
 
 
                 }else{
                     mediaPlayerRain.start();
-                    playSong.setImageResource(R.drawable.playbutton);
+                    mediaPlayerRain2.start();
+                    mediaPlayerRain3.start();
+                    mediaPlayerRain4.start();
+                    mediaPlayerRain5.start();
+                    playbutton.setBackgroundResource(R.drawable.pausebutton);
                 }
                 isPlaying = !isPlaying;
             }
@@ -543,6 +587,10 @@ public class MainActivity extends AppCompatActivity {
         super.onBackPressed();
 
         mediaPlayerRain.stop();
+        mediaPlayerRain2.stop();
+        mediaPlayerRain3.stop();
+        mediaPlayerRain4.stop();
+        mediaPlayerRain5.stop();
 
 
         locationManager.removeUpdates(locationListener);
@@ -553,6 +601,10 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
 
         mediaPlayerRain.stop();
+        mediaPlayerRain2.stop();
+        mediaPlayerRain3.stop();
+        mediaPlayerRain4.stop();
+        mediaPlayerRain5.stop();
         locationManager.removeUpdates(locationListener);
 
     }
@@ -561,6 +613,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         mediaPlayerRain.stop();
+        mediaPlayerRain2.stop();
+        mediaPlayerRain3.stop();
+        mediaPlayerRain4.stop();
+        mediaPlayerRain5.stop();
         locationManager.removeUpdates(locationListener);
 
     }

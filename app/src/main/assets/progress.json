@@ -1,0 +1,45 @@
+{
+  "playlistjsonfile": [
+    {
+      "name": "playlist1",
+      "progress1":"10",
+      "progress2":"50",
+      "progress3":"80",
+      "progress4":"40",
+      "progress5":"50"
+
+    },
+    {
+      "name": "playlist2",
+      "progress1":"10",
+      "progress2":"20",
+      "progress3":"30",
+      "progress4":"40",
+      "progress5":"50"
+    },{
+      "name": "playlist3",
+      "progress1":"50",
+      "progress2":"50",
+      "progress3":"50",
+      "progress4":"50",
+      "progress5":"50"
+    },
+    {
+      "name": "playlist4",
+      "progress1":"60",
+      "progress2":"60",
+      "progress3":"60",
+      "progress4":"60",
+      "progress5":"60"
+    },
+    {
+      "name": "playlist5",
+      "progress1":"100",
+      "progress2":"100",
+      "progress3":"100",
+      "progress4":"100",
+      "progress5":"100"
+    }
+    
+  ]
+}

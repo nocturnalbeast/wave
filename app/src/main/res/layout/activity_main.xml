@@ -162,14 +162,14 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+        <Button
+            android:id="@+id/playbutton"
+            android:layout_width="23dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/playbutton" />
+            android:background="@drawable/pausebutton" />
 
         <ImageButton
             android:id="@+id/songList"
@@ -234,14 +234,6 @@
         app:layout_constraintStart_toEndOf="@+id/weatherTextView"
         app:layout_constraintTop_toBottomOf="@+id/weatherTextView"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/playPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_pause" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

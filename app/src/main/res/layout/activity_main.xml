@@ -4,58 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/group559"
     tools:context=".MainActivity">
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="426dp"
+        android:layout_height="732dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/group559" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="169dp"
-        android:layout_height="23dp"
+        android:layout_width="186dp"
+        android:layout_height="47dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="188dp"
         android:layout_marginRight="188dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintBottom_toTopOf="@+id/temp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.629"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.535"
-        android:layout_marginLeft="16dp">
+        app:layout_constraintVertical_bias="0.535">
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
+            android:paddingTop="15dp"
             android:paddingRight="10dp"
 
             app:srcCompat="@drawable/sign2" />
 
-        <TextView
-            android:id="@+id/textView3"
+        <EditText
+            android:id="@+id/currentLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily=""
             android:text="Cochin"
-            android:textSize="16dp"
-            android:fontFamily=""/>
+            android:textSize="16dp" />
     </LinearLayout>
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily=""
         android:text="27C"
         android:textSize="78dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.095"
+        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:fontFamily=""
-        />
+        app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -80,6 +91,7 @@
             app:srcCompat="@drawable/sign1" />
 
         <TextView
+            android:id="@+id/humidity"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="8dp"
@@ -106,6 +118,7 @@
             app:srcCompat="@drawable/sign5" />
 
         <TextView
+            android:id="@+id/wind"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="6dp"
@@ -167,6 +180,68 @@
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/sign4" />
     </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/cityName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.379" />
+
+    <Button
+        android:id="@+id/getWeatherButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:text="Whats's the weather"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/weatherTextView"
+        android:layout_width="371dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getWeatherButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/coordTextView"
+        android:layout_width="359dp"
+        android:layout_height="68dp"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/weatherTextView"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toEndOf="@+id/weatherTextView"
+        app:layout_constraintTop_toBottomOf="@+id/weatherTextView"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/playPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_media_pause" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

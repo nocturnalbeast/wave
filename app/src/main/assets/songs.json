@@ -1,0 +1,86 @@
+{
+  "weather": [
+    {
+      "name": "Haze",
+      "song":"haze",
+      "image":"haze"
+    },
+    {
+      "name": "Rain",
+      "song":"rain",
+      "image":"rain"
+    },{
+      "name": "Clouds",
+      "song":"clouds",
+      "image":"clouds"
+    },
+    {
+      "name":"Fog",
+      "song":"fog",
+      "image":"fog"
+    },
+    {
+      "name": "Thunderstorm",
+      "song":"thunderstorm",
+      "image":"thunderstorm"
+    },
+    {
+      "name":"Drizzle",
+      "song":"drizzle",
+      "image":"drizzle"
+    },
+    {
+      "name":"Snow",
+      "song":"snow",
+      "image":"snow"
+    },
+    {
+      "name": "Mist",
+      "song":"mist",
+      "image":"mist"
+    },
+    {
+      "name":"Smoke",
+      "song":"smoke",
+      "image":"smoke"
+    },
+    {
+      "name":"Dust",
+      "song":"dust",
+      "image":"dust"
+    },
+    {
+      "name": "Sand",
+      "song":"sand",
+      "image":"sand"
+    },
+    {
+      "name":"Ash",
+      "song":"ash",
+      "image":"ash"
+    },
+    {
+      "name":"Squall",
+      "song":"squall",
+      "image":"squall"
+    },
+    {
+      "name":"Dust",
+      "song":"dust",
+      "image":"dust"
+    },
+    {
+      "name": "Tornado",
+      "song":"tornado",
+      "image":"tornado"
+    },
+    {
+      "name":"Clear",
+      "song":"clear",
+      "image":"clear"
+    }
+
+
+
+  ]
+}

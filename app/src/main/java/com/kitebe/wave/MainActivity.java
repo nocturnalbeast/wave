@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
     AudioManager audioManager;
     MediaPlayer mediaPlayerRain,mediaPlayerRain2,mediaPlayerRain3,mediaPlayerRain4,mediaPlayerRain5;
     ImageView backgroungImage ;
-    String jsonMain;
+    String jsonMain, plname;
     Button getWeatherButton,equilizer;
+    String song1,song2,song3,song4,song5;
 
     //song controller
     Button playbutton;
@@ -245,11 +246,22 @@ public class MainActivity extends AppCompatActivity {
                 Resources resources = context.getResources();
                 JSONObject weatherBackgroundContent = new JSONObject(string);
 
+                //progress equalizer json
+                JSONObject progressJson = new JSONObject(stringPL);
+
                 String weatherBackgroundInfo = weatherBackgroundContent.getString("weather");
                 Log.i("weather content", weatherBackgroundInfo);
 
+                //progress equalizer json
+                String playlistName=progressJson.getString("playlistjsonfile");
+                Log.i("progress content", playlistName);
+
                 JSONArray weatherBackgroundContentArray = new JSONArray(weatherBackgroundInfo);
                 String weatherBackgroundInformation = "";
+
+                //progress equalizer json
+                JSONArray playlistNameArray = new JSONArray(playlistName);
+
 
                 //weatherInformation
 
@@ -261,12 +273,12 @@ public class MainActivity extends AppCompatActivity {
 
                     if(jsonMain.equals(name)  ){
 
-                        String  song1 =jsonWeatherBackgroundContentPart.getString("song1");
-                        String  song2 =jsonWeatherBackgroundContentPart.getString("song2");
-                        String  song3 =jsonWeatherBackgroundContentPart.getString("song3");
-                        String  song4 =jsonWeatherBackgroundContentPart.getString("song4");
-                        String  song5 =jsonWeatherBackgroundContentPart.getString("song5");
-                        String  plname =jsonWeatherBackgroundContentPart.getString("playlistname");
+                          song1 =jsonWeatherBackgroundContentPart.getString("song1");
+                          song2 =jsonWeatherBackgroundContentPart.getString("song2");
+                          song3 =jsonWeatherBackgroundContentPart.getString("song3");
+                          song4 =jsonWeatherBackgroundContentPart.getString("song4");
+                          song5 =jsonWeatherBackgroundContentPart.getString("song5");
+                        plname =jsonWeatherBackgroundContentPart.getString("playlistname");
 
                         // get image name from JSON
                         String image =jsonWeatherBackgroundContentPart.getString("image");
@@ -275,11 +287,7 @@ public class MainActivity extends AppCompatActivity {
                         final int resourceImageId = resources.getIdentifier(image, "drawable", context.getPackageName());
 
                         // get resource id by song song
-                        final int resourceSongId1 = resources.getIdentifier(song1, "raw", context.getPackageName());
-                        final int resourceSongId2 = resources.getIdentifier(song2, "raw", context.getPackageName());
-                        final int resourceSongId3 = resources.getIdentifier(song3, "raw", context.getPackageName());
-                        final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
-                        final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
+
 
                         // get drawable by resourceImageid
                         Drawable drawable = resources.getDrawable(resourceImageId);
@@ -287,29 +295,8 @@ public class MainActivity extends AppCompatActivity {
 
                         // backgroungImage.setImageResource(R.drawable.rain);
                         backgroungImage.setImageDrawable(drawable);
-                        mediaPlayerRain = MediaPlayer.create(getApplicationContext(),resourceSongId1);
-                        mediaPlayerRain.start();
-                        mediaPlayerRain2 = MediaPlayer.create(getApplicationContext(),resourceSongId2);
-                        mediaPlayerRain2.start();
-                        mediaPlayerRain3 = MediaPlayer.create(getApplicationContext(),resourceSongId3);
-                        mediaPlayerRain3.start();
-                        mediaPlayerRain4 = MediaPlayer.create(getApplicationContext(),resourceSongId4);
-                        mediaPlayerRain4.start();
-                        mediaPlayerRain5 = MediaPlayer.create(getApplicationContext(),resourceSongId5);
-                        mediaPlayerRain5.start();
 
 
-                        JSONObject progressJson = new JSONObject(stringPL);
-
-                        String playlistName=progressJson.getString("nmae");
-
-                        if (plname.equals(playlistName)) {
-                            String  progress1 =jsonWeatherBackgroundContentPart.getString("progress1");
-                            String  progress2 =jsonWeatherBackgroundContentPart.getString("progress2");
-                            String  progress3 =jsonWeatherBackgroundContentPart.getString("progress3");
-                            String  progress4 =jsonWeatherBackgroundContentPart.getString("progress4");
-                            String  progress5 =jsonWeatherBackgroundContentPart.getString("progress5");
-                        }
 
 
                     }
@@ -319,6 +306,71 @@ public class MainActivity extends AppCompatActivity {
                         weatherBackgroundInformation += name+"\r\n";
                         Log.i("weather information",weatherBackgroundInformation);
                     }
+
+
+                }
+
+                ////progress equalizer json
+
+                for (int i=0; i <playlistNameArray.length(); i++){
+
+                    JSONObject playlistNameArrayPart = playlistNameArray.getJSONObject(i);
+
+                    String name = playlistNameArrayPart.getString("name");
+
+                    if(plname.equals(name)  ){
+
+                        int  progress1 =playlistNameArrayPart.getInt("progress1");
+                        int  progress2 =playlistNameArrayPart.getInt("progress2");
+                        int  progress3 =playlistNameArrayPart.getInt("progress3");
+                        int  progress4 =playlistNameArrayPart.getInt("progress4");
+                        int  progress5 =playlistNameArrayPart.getInt("progress5");
+                        Log.i("progressjson","info");
+
+                        float log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
+                        float log2 = (float) (Math.log(100 - (progress1-2)) / Math.log(100));
+                        float log3 = (float) (Math.log(100 - (progress1-3)) / Math.log(100));
+                        float log4 = (float) (Math.log(100 - (progress1-4)) / Math.log(100));
+                        float log5 = (float) (Math.log(100 - (progress1-5)) / Math.log(100));
+
+
+
+
+
+                        // get resource id by song song
+                        final int resourceSongId1 = resources.getIdentifier(song1, "raw", context.getPackageName());
+                        final int resourceSongId2 = resources.getIdentifier(song2, "raw", context.getPackageName());
+                        final int resourceSongId3 = resources.getIdentifier(song3, "raw", context.getPackageName());
+                        final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
+                        final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
+
+                        Toast.makeText(getApplicationContext(),progress1+"hello",Toast.LENGTH_SHORT).show();
+
+
+                        mediaPlayerRain = MediaPlayer.create(getApplicationContext(),resourceSongId1);
+                        mediaPlayerRain.start();
+                        mediaPlayerRain.setVolume(1 - log1, 1 - log1);
+
+                        mediaPlayerRain2 = MediaPlayer.create(getApplicationContext(),resourceSongId2);
+                        mediaPlayerRain2.start();
+                        mediaPlayerRain2.setVolume(1 - log2, 1 - log2);
+
+
+                        mediaPlayerRain3 = MediaPlayer.create(getApplicationContext(),resourceSongId3);
+                        mediaPlayerRain3.start();
+                        mediaPlayerRain3.setVolume(1 - log3, 1 - log3);
+
+                        mediaPlayerRain4 = MediaPlayer.create(getApplicationContext(),resourceSongId4);
+                        mediaPlayerRain4.start();
+                        mediaPlayerRain4.setVolume(1 - log4, 1 - log4);
+
+                        mediaPlayerRain5 = MediaPlayer.create(getApplicationContext(),resourceSongId5);
+                        mediaPlayerRain5.start();
+                        mediaPlayerRain5.setVolume(1 - log5, 1 - log5);
+
+
+                    }
+
 
 
                 }

@@ -113,11 +113,11 @@ public class MainActivity extends AppCompatActivity {
                     addresss = listAddresses.get(0).getSubLocality() + "\n";
                     Log.i("current location:",addresss);
                     try {
-//                        mediaPlayerRain.reset();
-                        mediaPlayerRain2.reset();
-                        mediaPlayerRain3.reset();
-                        mediaPlayerRain4.reset();
-                        mediaPlayerRain5.reset();
+////                        mediaPlayerRain.reset();
+//                        mediaPlayerRain2.reset();
+//                        mediaPlayerRain3.reset();
+//                        mediaPlayerRain4.reset();
+//                        mediaPlayerRain5.reset();
                         DownloadTask task = new DownloadTask();
 
 //                        String encodedCityName = URLEncoder.encode(addresss.toString(), "UTF-8");
@@ -160,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
-
 
 
 
@@ -278,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                           song3 =jsonWeatherBackgroundContentPart.getString("song3");
                           song4 =jsonWeatherBackgroundContentPart.getString("song4");
                           song5 =jsonWeatherBackgroundContentPart.getString("song5");
-                        plname =jsonWeatherBackgroundContentPart.getString("playlistname");
+                          plname =jsonWeatherBackgroundContentPart.getString("playlistname");
 
                         // get image name from JSON
                         String image =jsonWeatherBackgroundContentPart.getString("image");
@@ -328,10 +326,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("progressjson","info");
 
                         float log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
-                        float log2 = (float) (Math.log(100 - (progress1-2)) / Math.log(100));
-                        float log3 = (float) (Math.log(100 - (progress1-3)) / Math.log(100));
-                        float log4 = (float) (Math.log(100 - (progress1-4)) / Math.log(100));
-                        float log5 = (float) (Math.log(100 - (progress1-5)) / Math.log(100));
+                        float log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
+                        float log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
+                        float log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
+                        float log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
 
 
 
@@ -370,8 +368,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                     }
-
-
 
                 }
 

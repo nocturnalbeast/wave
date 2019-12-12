@@ -1,7 +1,7 @@
 {
   "playlistjsonfile": [
     {
-      "name": "playlist1",
+      "name": "Rain",
       "progress1":"70",
       "progress2":"50",
       "progress3":"80",
@@ -10,14 +10,14 @@
 
     },
     {
-      "name": "playlist2",
+      "name": "Haze",
       "progress1":"10",
       "progress2":"20",
       "progress3":"30",
       "progress4":"40",
       "progress5":"50"
     },{
-      "name": "playlist3",
+      "name": "Clouds",
       "progress1":"50",
       "progress2":"50",
       "progress3":"50",
@@ -25,7 +25,7 @@
       "progress5":"50"
     },
     {
-      "name": "playlist4",
+      "name": "Thunderstorm",
       "progress1":"60",
       "progress2":"60",
       "progress3":"60",
@@ -33,7 +33,7 @@
       "progress5":"60"
     },
     {
-      "name": "playlist5",
+      "name": "Clear",
       "progress1":"100",
       "progress2":"100",
       "progress3":"100",

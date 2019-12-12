@@ -9,13 +9,24 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
 public class SecondActivity extends Activity {
+
+    static ArrayList<String> notes = new ArrayList<>();
+    static ArrayAdapter adapter;
+    SharedPreferences sharedPreferences;
+    int noteId=-1;
 
     MediaPlayer mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5;
     SeekBar volumeSeekBar1,volumeSeekBar2,volumeSeekBar3,volumeSeekBar4,volumeSeekBar5;
@@ -25,7 +36,7 @@ public class SecondActivity extends Activity {
     Button saveMusic1,saveMusic2,saveMusic3,saveMusic4,saveMusic5,playList1,playList2,playList3,saveAll;
     boolean saveOption = false,saveOption2 = false,saveOption3 = false,saveOption4 = false,saveOption5 = false, sharedPreferenceValueBoolean=false;
     float currentVolume,currentVolume2,currentVolume3,currentVolume4,currentVolume5;
-    SharedPreferences sharedpreferences;
+    SharedPreferences sharedpreferencesexit;
     int getSharedPreferenceValue,getSharedPreferenceValue2,getSharedPreferenceValue3,getSharedPreferenceValue4,getSharedPreferenceValue5;
     ImageView birdImage,thunderImage,rainImage,riverImage,leafImage;
 
@@ -64,6 +75,19 @@ public class SecondActivity extends Activity {
         volumeSeekBar4 = findViewById(R.id.volumeSeekBar4);
         volumeSeekBar5 = findViewById(R.id.volumeSeekBar5);
 
+        sharedPreferences = getApplicationContext()
+                .getSharedPreferences("com.kitebe.wave", Context.MODE_PRIVATE);
+        HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
+
+        if (set == null) {
+            notes.add("add new note");
+        }else {
+            notes = new ArrayList(set);
+        }
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
+
+        ListView listView =  findViewById(R.id.listView);
+        listView.setAdapter(adapter);
 
 
         //saveMusic button
@@ -88,9 +112,9 @@ public class SecondActivity extends Activity {
         leafImage = findViewById(R.id.leafImage);
 
         try {
-            sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+            sharedpreferencesexit = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-            getSharedPreferenceValue = sharedpreferences.getInt("currentProgress", 10);
+            getSharedPreferenceValue = sharedpreferencesexit.getInt("currentProgress", 10);
 
             Log.i("channel", String.valueOf(getSharedPreferenceValue));
         }catch (Exception e){
@@ -98,7 +122,7 @@ public class SecondActivity extends Activity {
         }
         try {
 
-            getSharedPreferenceValue2 = sharedpreferences.getInt("currentProgress2", 10);
+            getSharedPreferenceValue2 = sharedpreferencesexit.getInt("currentProgress2", 10);
 
             Log.i("channel2", String.valueOf(getSharedPreferenceValue2));
         }catch (Exception e){
@@ -106,7 +130,7 @@ public class SecondActivity extends Activity {
         }
         try {
 
-            getSharedPreferenceValue3 = sharedpreferences.getInt("currentProgress3", 10);
+            getSharedPreferenceValue3 = sharedpreferencesexit.getInt("currentProgress3", 10);
 
             Log.i("channel3", String.valueOf(getSharedPreferenceValue3));
         }catch (Exception e){
@@ -114,7 +138,7 @@ public class SecondActivity extends Activity {
         }
         try {
 
-            getSharedPreferenceValue4 = sharedpreferences.getInt("currentProgress4", 10);
+            getSharedPreferenceValue4 = sharedpreferencesexit.getInt("currentProgress4", 10);
 
             Log.i("channel4", String.valueOf(getSharedPreferenceValue4));
         }catch (Exception e){
@@ -123,7 +147,7 @@ public class SecondActivity extends Activity {
 
         try {
 
-            getSharedPreferenceValue5 = sharedpreferences.getInt("currentProgress5", 10);
+            getSharedPreferenceValue5 = sharedpreferencesexit.getInt("currentProgress5", 10);
 
             Log.i("channel5", String.valueOf(getSharedPreferenceValue5));
         }catch (Exception e){
@@ -244,11 +268,11 @@ public class SecondActivity extends Activity {
                                 mediaPlayer1.setLooping(true);
                                 saveOption=true;
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
                                 editor.putInt("currentProgress", progress1);
                                 editor.apply();
 
-                                Log.i("editorValue", String.valueOf(sharedpreferences.getInt("currentProgress",10)));
+                                Log.i("editorValue", String.valueOf(sharedpreferencesexit.getInt("currentProgress",10)));
                                 Log.i("currentvolumetesting", String.valueOf(currentVolume));
 
                             }
@@ -313,11 +337,11 @@ public class SecondActivity extends Activity {
                                 mediaPlayer2.setLooping(true);
                                 saveOption2=true;
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
                                 editor.putInt("currentProgress2", progress2);
                                 editor.apply();
 
-                                Log.i("editorValue2", String.valueOf(sharedpreferences.getInt("currentProgress2",10)));
+                                Log.i("editorValue2", String.valueOf(sharedpreferencesexit.getInt("currentProgress2",10)));
                                 Log.i("currentvolumetesting2", String.valueOf(currentVolume2));
 
                             }
@@ -385,11 +409,11 @@ public class SecondActivity extends Activity {
                                 mediaPlayer3.setLooping(true);
                                 saveOption3=true;
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
                                 editor.putInt("currentProgress3", progress3);
                                 editor.apply();
 
-                                Log.i("editorValue3", String.valueOf(sharedpreferences.getInt("currentProgress3",10)));
+                                Log.i("editorValue3", String.valueOf(sharedpreferencesexit.getInt("currentProgress3",10)));
                                 Log.i("currentvolumetesting3", String.valueOf(currentVolume3));
 
                             }
@@ -453,11 +477,11 @@ public class SecondActivity extends Activity {
                                 mediaPlayer4.setLooping(true);
                                 saveOption4=true;
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
                                 editor.putInt("currentProgress4", progress4);
                                 editor.apply();
 
-                                Log.i("editorValue4", String.valueOf(sharedpreferences.getInt("currentProgress4",10)));
+                                Log.i("editorValue4", String.valueOf(sharedpreferencesexit.getInt("currentProgress4",10)));
                                 Log.i("currentvolumetesting4", String.valueOf(currentVolume4));
 
                             }
@@ -523,11 +547,11 @@ public class SecondActivity extends Activity {
                                 mediaPlayer5.setLooping(true);
                                 saveOption5=true;
 
-                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
                                 editor.putInt("currentProgress5", progress5);
                                 editor.apply();
 
-                                Log.i("editorValue5", String.valueOf(sharedpreferences.getInt("currentProgress5",10)));
+                                Log.i("editorValue5", String.valueOf(sharedpreferencesexit.getInt("currentProgress5",10)));
                                 Log.i("currentvolumetesting5", String.valueOf(currentVolume5));
 
                             }
@@ -550,16 +574,40 @@ public class SecondActivity extends Activity {
             }
         });
 
-        saveAll.setOnClickListener(new View.OnClickListener() {
+    /*    saveAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
                 editor.putInt("currentProgress", progress1);
                 editor.putInt("currentProgress2", progress2);
                 editor.putInt("currentProgress3", progress3);
                 editor.putInt("currentProgress4", progress4);
                 editor.putInt("currentProgress5", progress5);
                 editor.apply();
+
+            }
+        });
+*/
+
+        saveAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (noteId != -1) {
+
+                }else {
+                    notes.add("");
+                    adapter.notifyDataSetChanged();
+                    noteId = notes.size() - 1;
+                }
+
+                notes.set(noteId, String.valueOf(progress1));
+                adapter.notifyDataSetChanged();
+                sharedPreferences = getApplicationContext()
+                        .getSharedPreferences("com.kitebe.wave", Context.MODE_PRIVATE);
+                HashSet<String> set = new HashSet<String>(notes);
+                sharedPreferences.edit().putStringSet("notes", set).apply();
+
 
             }
         });

@@ -7,7 +7,7 @@
       "song3":"song3",
       "song4":"song4",
       "song5":"song5",
-      "playlistname": "playlist1",
+      "playlistname": "Rain",
       "image":"rain"
     },{
       "name": "Clouds",
@@ -17,7 +17,7 @@
       "song3":"song3",
       "song4":"song4",
       "song5":"song5",
-      "playlistname": "playlist2"
+      "playlistname": "Clouds"
     },
     {
       "name": "Thunderstorm",
@@ -26,7 +26,7 @@
       "song3":"song3",
       "song4":"song4",
       "song5":"song5",
-      "playlistname": "playlist3",
+      "playlistname": "Thunderstorm",
       "image":"thunderstorm"
     },
     {
@@ -36,7 +36,7 @@
       "song3":"song3",
       "song4":"song4",
       "song5":"song5",
-      "playlistname": "playlist4",
+      "playlistname": "Haze",
       "image":"haze"
     },
     {
@@ -46,7 +46,7 @@
       "song3":"song3",
       "song4":"song4",
       "song5":"song5",
-      "playlistname": "playlist5",
+      "playlistname": "Clear",
       "image":"clear"
     }
 

@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -43,21 +44,29 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
+import android.view.View.OnKeyListener;
+
+import android.view.View;
+import android.view.KeyEvent;
 
 public class MainActivity extends AppCompatActivity {
-    EditText cityName,currentLocation;
+    EditText cityName;
     TextView weatherTextView,temp,humidty,wind;
+    static TextView songName;
     TextView coordTextView;
     AudioManager audioManager;
-    MediaPlayer mediaPlayerRain,mediaPlayerRain2,mediaPlayerRain3,mediaPlayerRain4,mediaPlayerRain5;
+    static MediaPlayer mediaPlayerRain,mediaPlayerRain2,mediaPlayerRain3,mediaPlayerRain4,mediaPlayerRain5;
     ImageView backgroungImage ;
-    String jsonMain, plname;
+    String jsonMain;
+    static String plname;
+    static String weatherName;
     Button getWeatherButton,equilizer;
     String song1,song2,song3,song4,song5;
 
+    static String coordTempInformation;
     //song controller
-    Button playbutton;
-    boolean isPlaying = false;
+   static Button playbutton;
+   static boolean isPlaying = false;
 
     boolean loop;
     //current location
@@ -122,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                        String encodedCityName = URLEncoder.encode(addresss.toString(), "UTF-8");
 
-                        task.execute("https://openweathermap.org/data/2.5/weather?q=" + addresss + "&appid=b6907d289e10d714a6e88b30761fae22");
+                        task.execute("https://openweathermap.org/data/2.5/weather?q="+ addresss +"&appid=b6907d289e10d714a6e88b30761fae22");
 
 //                        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //                        mgr.hideSoftInputFromWindow(editText.getWindowToken(), 0);
@@ -145,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
            // addressTextView.setText(addresss);
 
-            currentLocation.setText(addresss, TextView.BufferType.EDITABLE);
+           // currentLocation.setText(addresss, TextView.BufferType.EDITABLE);
             Log.i("current location:",addresss);
 
 
@@ -232,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
 //                   }
                 }
                 if(!weatherInformation.equals("")) {
-                    weatherTextView.setText(weatherInformation);
+              //    weatherTextView.setText(weatherInformation);
                 }else {
                     Toast.makeText(getApplicationContext(),"could not find weather Information :",Toast.LENGTH_LONG).show();
                 }
@@ -267,9 +276,9 @@ public class MainActivity extends AppCompatActivity {
 
                     JSONObject jsonWeatherBackgroundContentPart = weatherBackgroundContentArray.getJSONObject(i);
 
-                    String name = jsonWeatherBackgroundContentPart.getString("name");
+                     weatherName = jsonWeatherBackgroundContentPart.getString("name");
 
-                    if(jsonMain.equals(name)  ){
+                    if(jsonMain.equals(weatherName)  ){
 
                           song1 =jsonWeatherBackgroundContentPart.getString("song1");
                           song2 =jsonWeatherBackgroundContentPart.getString("song2");
@@ -294,17 +303,13 @@ public class MainActivity extends AppCompatActivity {
                         // backgroungImage.setImageResource(R.drawable.rain);
                         backgroungImage.setImageDrawable(drawable);
 
-
-
-
                     }
 
-                    if (!name.equals("") ){
+                    if (!weatherName.equals("") ){
 
-                        weatherBackgroundInformation += name+"\r\n";
+                        weatherBackgroundInformation += weatherName+"\r\n";
                         Log.i("weather information",weatherBackgroundInformation);
                     }
-
 
                 }
 
@@ -318,6 +323,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(plname.equals(name)  ){
 
+                        songName.setText(plname);
                         int  progress1 =playlistNameArrayPart.getInt("progress1");
                         int  progress2 =playlistNameArrayPart.getInt("progress2");
                         int  progress3 =playlistNameArrayPart.getInt("progress3");
@@ -331,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
                         float log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
                         float log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
 
+                        playbutton.setBackgroundResource(R.drawable.pausebutton);
 
 
 
@@ -388,14 +395,15 @@ public class MainActivity extends AppCompatActivity {
 //                JSONArray coordInfoArray = new JSONArray(coordInfo);
 
                 JSONObject coordObject= new JSONObject(coordInfo);
-                String coordTempInformation = coordObject.getString("temp");
+                coordTempInformation = coordObject.getString("temp");
                 String coordPressureInformation = coordObject.getString("pressure");
                 String coordHumidityInformation = coordObject.getString("humidity");
 
 
                 if(!coordTempInformation.equals("")) {
-                    coordTextView.setText("temp:"+coordTempInformation+"\u2103"+"\rpressure:"+coordPressureInformation+""+"\nHumidity:"+coordHumidityInformation);
+                   // coordTextView.setText("temp:"+coordTempInformation+"\u2103"+"\rpressure:"+coordPressureInformation+""+"\nHumidity:"+coordHumidityInformation);
                     temp.setText(coordTempInformation+"\u2103");
+
                     humidty.setText(coordHumidityInformation+"%");
 
                 }else {
@@ -425,7 +433,11 @@ public class MainActivity extends AppCompatActivity {
 
                     double kms = Double.parseDouble(coordWindInformation)* 3.6;
 
-                    wind.setText(kms+"Km/h");
+                    String test = String.format("%.02f", kms);
+
+
+                    wind.setText(test+"Km/h");
+
 
 
                 }else {
@@ -438,8 +450,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-
-
 
     }
 
@@ -486,6 +496,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         songList = findViewById(R.id.songList);
+        songName = findViewById(R.id.songName);
 
         songList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -502,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
         playbutton= findViewById(R.id.playbutton);
 
 
-        getWeatherButton=findViewById(R.id.getWeatherButton);
+       // getWeatherButton=findViewById(R.id.getWeatherButton);
         backgroungImage = findViewById(R.id.backgroundImage);
        // equilizer=findViewById(R.id.equilizer);
         // hazeImage = findViewById(R.id.hazeImage);
@@ -515,12 +526,9 @@ public class MainActivity extends AppCompatActivity {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         temp = findViewById(R.id.temp);
-        currentLocation = findViewById(R.id.currentLocation);
+       // currentLocation = findViewById(R.id.currentLocation);
         humidty = findViewById(R.id.humidity);
         wind = findViewById(R.id.wind);
-
-
-
 
 
 
@@ -576,35 +584,45 @@ public class MainActivity extends AppCompatActivity {
 
         cityName.setText(addresss, TextView.BufferType.EDITABLE);
 
-        getWeatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
+//        getWeatherButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
+        cityName.setOnKeyListener(new OnKeyListener() {
+            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+                //If the keyevent is a key-down event on the "enter" button
+                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    try {
 
-                    DownloadTask task = new DownloadTask();
-
+                        DownloadTask task = new DownloadTask();
 
 //                    String encodedCityName = URLEncoder.encode(cityName.getText().toString(), "UTF-8");
-                    //http://openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22
+                        //http://openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22
 
-                    task.execute("https://openweathermap.org/data/2.5/weather?q=" + cityName.getText().toString() + "&appid=b6907d289e10d714a6e88b30761fae22");
+                        task.execute("https://openweathermap.org/data/2.5/weather?q=" + cityName.getText().toString() + "&appid=b6907d289e10d714a6e88b30761fae22");
 
-                    InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    mgr.hideSoftInputFromWindow(cityName.getWindowToken(), 0);
-                } catch(Exception e){
+                        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        mgr.hideSoftInputFromWindow(cityName.getWindowToken(), 0);
+                    } catch(Exception e){
 
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.post(new Runnable() {
-                        public void run() {
-                            Toast t = Toast.makeText(MainActivity.this,"Input error :",Toast.LENGTH_SHORT);
-                            t.show();
-                        }
-                    });
-                    e.printStackTrace();
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(new Runnable() {
+                            public void run() {
+                                Toast t = Toast.makeText(MainActivity.this,"Input error :",Toast.LENGTH_SHORT);
+                                t.show();
+                            }
+                        });
+                        e.printStackTrace();
+                    }
+                    return true;
                 }
+                return false;
             }
         });
+
 
         playbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -615,6 +633,7 @@ public class MainActivity extends AppCompatActivity {
                     mediaPlayerRain4.pause();
                     mediaPlayerRain5.pause();
                     playbutton.setBackgroundResource(R.drawable.playbutton);
+                    SecondActivity.playButton.setBackgroundResource(R.drawable.playbutton);
 
 
                 }else{
@@ -624,6 +643,8 @@ public class MainActivity extends AppCompatActivity {
                     mediaPlayerRain4.start();
                     mediaPlayerRain5.start();
                     playbutton.setBackgroundResource(R.drawable.pausebutton);
+                    SecondActivity.playButton.setBackgroundResource(R.drawable.pausebutton);
+
                 }
                 isPlaying = !isPlaying;
             }
@@ -634,10 +655,10 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        mediaPlayerRain.stop();
-        mediaPlayerRain2.stop();
-        mediaPlayerRain3.stop();
-        mediaPlayerRain4.stop();
+//        mediaPlayerRain.stop();
+//        mediaPlayerRain2.stop();
+//        mediaPlayerRain3.stop();
+//        mediaPlayerRain4.stop();
         mediaPlayerRain5.stop();
 
 
@@ -648,11 +669,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        mediaPlayerRain.stop();
-        mediaPlayerRain2.stop();
-        mediaPlayerRain3.stop();
-        mediaPlayerRain4.stop();
-        mediaPlayerRain5.stop();
+//        mediaPlayerRain.stop();
+//        mediaPlayerRain2.stop();
+//        mediaPlayerRain3.stop();
+//        mediaPlayerRain4.stop();
+//        mediaPlayerRain5.stop();
         locationManager.removeUpdates(locationListener);
 
     }
@@ -660,13 +681,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        mediaPlayerRain.stop();
-        mediaPlayerRain2.stop();
-        mediaPlayerRain3.stop();
-        mediaPlayerRain4.stop();
-        mediaPlayerRain5.stop();
+//        mediaPlayerRain.stop();
+//        mediaPlayerRain2.stop();
+//        mediaPlayerRain3.stop();
+//        mediaPlayerRain4.stop();
+//        mediaPlayerRain5.stop();
         locationManager.removeUpdates(locationListener);
 
+    }
+
+    //widget
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int clicks = getSharedPreferences("sp", MODE_PRIVATE).getInt("clicks", 0);
+        ((TextView) findViewById(R.id.clicksTextView)).setText(String.valueOf(clicks));
     }
 }
 

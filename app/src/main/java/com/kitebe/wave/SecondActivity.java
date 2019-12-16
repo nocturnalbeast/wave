@@ -3,6 +3,7 @@ package com.kitebe.wave;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
@@ -15,11 +16,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import static com.kitebe.wave.MainActivity.isPlaying;
+import static com.kitebe.wave.MainActivity.mediaPlayerRain;
+import static com.kitebe.wave.MainActivity.mediaPlayerRain2;
+import static com.kitebe.wave.MainActivity.mediaPlayerRain3;
+import static com.kitebe.wave.MainActivity.mediaPlayerRain4;
+import static com.kitebe.wave.MainActivity.mediaPlayerRain5;
 
 public class SecondActivity extends Activity {
 
@@ -27,8 +43,12 @@ public class SecondActivity extends Activity {
     static ArrayAdapter adapter;
     SharedPreferences sharedPreferences;
     int noteId=-1;
+    TextView songName;
+   static Button playButton;
+   int newprogress1,newprogress2,newprogress3,newprogress4,newprogress5;
 
-    MediaPlayer mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5;
+
+    //MediaPlayer mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5;
     SeekBar volumeSeekBar1,volumeSeekBar2,volumeSeekBar3,volumeSeekBar4,volumeSeekBar5;
     float log1,log2,log3,log4,log5, newvolume,newvolume2,newvolume3,newvolume4,newvolume5;
     int progress1,progress2,progress3,progress4,progress5;
@@ -36,7 +56,7 @@ public class SecondActivity extends Activity {
     Button saveMusic1,saveMusic2,saveMusic3,saveMusic4,saveMusic5,playList1,playList2,playList3,saveAll;
     boolean saveOption = false,saveOption2 = false,saveOption3 = false,saveOption4 = false,saveOption5 = false, sharedPreferenceValueBoolean=false;
     float currentVolume,currentVolume2,currentVolume3,currentVolume4,currentVolume5;
-    SharedPreferences sharedpreferencesexit;
+    //SharedPreferences sharedpreferencesexit;
     int getSharedPreferenceValue,getSharedPreferenceValue2,getSharedPreferenceValue3,getSharedPreferenceValue4,getSharedPreferenceValue5;
     ImageView birdImage,thunderImage,rainImage,riverImage,leafImage;
 
@@ -47,19 +67,60 @@ public class SecondActivity extends Activity {
 
     public static final String MyPREFERENCES = "MyPrefs" ;
 
+
+
+
+
+    //reading json from assets
+    public String loadJSONFromAsset(String s) {
+        Log.i("infunction","heloo");
+        String json = null;
+
+        try {
+            Log.i("try","hi");
+            InputStream is = getAssets().open(s);
+
+            int size = is.available();
+
+            byte[] buffer = new byte[size];
+
+            is.read(buffer);
+
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+            Log.d("intry","heloo");
+//            Toast.makeText(this, "Json"+json, Toast.LENGTH_SHORT).show();
+
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            Log.i("incatch","heloo");
+            return null;
+        }
+        Log.i("jsonfile",json);
+        Log.i("beforeReturn","heloo");
+
+        return json;
+
+
+    }
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        mediaPlayer1 = MediaPlayer.create(this, R.raw.song1);
-
-        mediaPlayer2 = MediaPlayer.create(this, R.raw.song2);
-//        mediaPlayer2.start();
-        mediaPlayer3 = MediaPlayer.create(this, R.raw.song3);
-//        mediaPlayer3.start();
-        mediaPlayer4 = MediaPlayer.create(this, R.raw.song4);
-        mediaPlayer5 = MediaPlayer.create(this, R.raw.song5);
+//        mediaPlayer1 = MediaPlayer.create(this, R.raw.song1);
+//
+//        mediaPlayer2 = MediaPlayer.create(this, R.raw.song2);
+////        mediaPlayer2.start();
+//        mediaPlayer3 = MediaPlayer.create(this, R.raw.song3);
+////        mediaPlayer3.start();
+//        mediaPlayer4 = MediaPlayer.create(this, R.raw.song4);
+//        mediaPlayer5 = MediaPlayer.create(this, R.raw.song5);
 
 
         volumeSeekBar1 = findViewById(R.id.volumSeekBar1);
@@ -91,17 +152,20 @@ public class SecondActivity extends Activity {
 
 
         //saveMusic button
-        saveMusic1 = findViewById(R.id.saveMusic1);
-        saveMusic2 = findViewById(R.id.saveMusic2);
-        saveMusic3 = findViewById(R.id.saveMusic3);
-        saveMusic4 = findViewById(R.id.saveMusic4);
-        saveMusic5 = findViewById(R.id.saveMusic5);
-        saveAll = findViewById(R.id.saveAll);
+//        saveMusic1 = findViewById(R.id.saveMusic1);
+//        saveMusic2 = findViewById(R.id.saveMusic2);
+//        saveMusic3 = findViewById(R.id.saveMusic3);
+//        saveMusic4 = findViewById(R.id.saveMusic4);
+//        saveMusic5 = findViewById(R.id.saveMusic5);
+//        saveAll = findViewById(R.id.saveAll);
 
         //playlist
         playList1 = findViewById(R.id.playList1);
         playList2 = findViewById(R.id.playList2);
         playList3 = findViewById(R.id.playList3);
+        songName = findViewById(R.id.songName);
+        playButton = findViewById(R.id.playButton);
+
 
 
         //images
@@ -111,109 +175,109 @@ public class SecondActivity extends Activity {
         riverImage = findViewById(R.id.riverImage);
         leafImage = findViewById(R.id.leafImage);
 
-        try {
-            sharedpreferencesexit = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-            getSharedPreferenceValue = sharedpreferencesexit.getInt("currentProgress", 10);
-
-            Log.i("channel", String.valueOf(getSharedPreferenceValue));
-        }catch (Exception e){
-            Log.d("Error",e.toString());
-        }
-        try {
-
-            getSharedPreferenceValue2 = sharedpreferencesexit.getInt("currentProgress2", 10);
-
-            Log.i("channel2", String.valueOf(getSharedPreferenceValue2));
-        }catch (Exception e){
-            Log.d("Error2",e.toString());
-        }
-        try {
-
-            getSharedPreferenceValue3 = sharedpreferencesexit.getInt("currentProgress3", 10);
-
-            Log.i("channel3", String.valueOf(getSharedPreferenceValue3));
-        }catch (Exception e){
-            Log.d("Error3",e.toString());
-        }
-        try {
-
-            getSharedPreferenceValue4 = sharedpreferencesexit.getInt("currentProgress4", 10);
-
-            Log.i("channel4", String.valueOf(getSharedPreferenceValue4));
-        }catch (Exception e){
-            Log.d("Error4",e.toString());
-        }
-
-        try {
-
-            getSharedPreferenceValue5 = sharedpreferencesexit.getInt("currentProgress5", 10);
-
-            Log.i("channel5", String.valueOf(getSharedPreferenceValue5));
-        }catch (Exception e){
-            Log.d("Error5",e.toString());
-        }
-
-
-        if (getSharedPreferenceValue!=0) {
-            mediaPlayer1.start();
-
-            volumeSeekBar1.setProgress(getSharedPreferenceValue);
-            newvolume = (float) (Math.log(100 - (getSharedPreferenceValue-1)) / Math.log(100));
-
-            mediaPlayer1.setVolume(1-newvolume,1-newvolume);
-            Log.i("sharedvalueinstarting",String.valueOf(newvolume));
-
-        }
-
-        if (getSharedPreferenceValue2!=0) {
-            mediaPlayer2.start();
-//                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
-
-//               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
-            volumeSeekBar2.setProgress(getSharedPreferenceValue2);
-            newvolume2 = (float) (Math.log(100 - (getSharedPreferenceValue2-1)) / Math.log(100));
-
-            mediaPlayer2.setVolume(1-newvolume2,1-newvolume2);
-            Log.i("sharedvalueinstarting2",String.valueOf(newvolume2));
-
-        }
-        if (getSharedPreferenceValue3!=0) {
-            mediaPlayer3.start();
-//                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
-
-//               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
-            volumeSeekBar3.setProgress(getSharedPreferenceValue3);
-            newvolume3 = (float) (Math.log(100 - (getSharedPreferenceValue3-1)) / Math.log(100));
-
-            mediaPlayer3.setVolume(1-newvolume3,1-newvolume3);
-            Log.i("sharedvalueinstarting3",String.valueOf(newvolume3));
-
-        }
-        if (getSharedPreferenceValue4!=0) {
-            mediaPlayer4.start();
-//                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
-
-//               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
-            volumeSeekBar4.setProgress(getSharedPreferenceValue4);
-            newvolume4 = (float) (Math.log(100 - (getSharedPreferenceValue4-1)) / Math.log(100));
-
-            mediaPlayer4.setVolume(1-newvolume4,1-newvolume4);
-            Log.i("sharedvalueinstarting4",String.valueOf(newvolume4));
-
-        }
-        if (getSharedPreferenceValue5!=0) {
-            mediaPlayer5.start();
-//                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
-
-//               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
-            volumeSeekBar5.setProgress(getSharedPreferenceValue5);
-            newvolume5 = (float) (Math.log(100 - (getSharedPreferenceValue5-1)) / Math.log(100));
-
-            mediaPlayer5.setVolume(1-newvolume5,1-newvolume5);
-            Log.i("sharedvalueinstarting5",String.valueOf(newvolume5));
-
-        }
+//        try {
+//            sharedpreferencesexit = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+//
+//            getSharedPreferenceValue = sharedpreferencesexit.getInt("currentProgress", 10);
+//
+//            Log.i("channel", String.valueOf(getSharedPreferenceValue));
+//        }catch (Exception e){
+//            Log.d("Error",e.toString());
+//        }
+//        try {
+//
+//            getSharedPreferenceValue2 = sharedpreferencesexit.getInt("currentProgress2", 10);
+//
+//            Log.i("channel2", String.valueOf(getSharedPreferenceValue2));
+//        }catch (Exception e){
+//            Log.d("Error2",e.toString());
+//        }
+//        try {
+//
+//            getSharedPreferenceValue3 = sharedpreferencesexit.getInt("currentProgress3", 10);
+//
+//            Log.i("channel3", String.valueOf(getSharedPreferenceValue3));
+//        }catch (Exception e){
+//            Log.d("Error3",e.toString());
+//        }
+//        try {
+//
+//            getSharedPreferenceValue4 = sharedpreferencesexit.getInt("currentProgress4", 10);
+//
+//            Log.i("channel4", String.valueOf(getSharedPreferenceValue4));
+//        }catch (Exception e){
+//            Log.d("Error4",e.toString());
+//        }
+//
+//        try {
+//
+//            getSharedPreferenceValue5 = sharedpreferencesexit.getInt("currentProgress5", 10);
+//
+//            Log.i("channel5", String.valueOf(getSharedPreferenceValue5));
+//        }catch (Exception e){
+//            Log.d("Error5",e.toString());
+//        }
+//
+//
+//        if (getSharedPreferenceValue!=0) {
+//          //  mediaPlayer1.start();
+//
+//            volumeSeekBar1.setProgress(getSharedPreferenceValue);
+//            newvolume = (float) (Math.log(100 - (getSharedPreferenceValue-1)) / Math.log(100));
+//
+//            MainActivity.mediaPlayerRain.setVolume(1-newvolume,1-newvolume);
+//            Log.i("sharedvalueinstarting",String.valueOf(newvolume));
+//
+//        }
+//
+//        if (getSharedPreferenceValue2!=0) {
+//
+////                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
+//
+////               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
+//            volumeSeekBar2.setProgress(getSharedPreferenceValue2);
+//            newvolume2 = (float) (Math.log(100 - (getSharedPreferenceValue2-1)) / Math.log(100));
+//
+//            MainActivity.mediaPlayerRain2.setVolume(1-newvolume,1-newvolume);
+//            Log.i("sharedvalueinstarting2",String.valueOf(newvolume2));
+//
+//        }
+//        if (getSharedPreferenceValue3!=0) {
+//           // mediaPlayer3.start();
+////                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
+//
+////               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
+//            volumeSeekBar3.setProgress(getSharedPreferenceValue3);
+//            newvolume3 = (float) (Math.log(100 - (getSharedPreferenceValue3-1)) / Math.log(100));
+//
+//            MainActivity.mediaPlayerRain3.setVolume(1-newvolume,1-newvolume);
+//            Log.i("sharedvalueinstarting3",String.valueOf(newvolume3));
+//
+//        }
+//        if (getSharedPreferenceValue4!=0) {
+//           // mediaPlayer4.start();
+////                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
+//
+////               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
+//            volumeSeekBar4.setProgress(getSharedPreferenceValue4);
+//            newvolume4 = (float) (Math.log(100 - (getSharedPreferenceValue4-1)) / Math.log(100));
+//
+//            MainActivity.mediaPlayerRain4.setVolume(1-newvolume,1-newvolume);
+//            Log.i("sharedvalueinstarting4",String.valueOf(newvolume4));
+//
+//        }
+//        if (getSharedPreferenceValue5!=0) {
+//            //mediaPlayer5.start();
+////                mediaPlayer1.setVolume(1 - getSharedPreferenceValue, 1 - getSharedPreferenceValue);
+//
+////               volumeSeekBar1.setProgress(Integer.parseInt(getSharedPreferenceValue.toString()));
+//            volumeSeekBar5.setProgress(getSharedPreferenceValue5);
+//            newvolume5 = (float) (Math.log(100 - (getSharedPreferenceValue5-1)) / Math.log(100));
+//
+//            MainActivity.mediaPlayerRain5.setVolume(1-newvolume,1-newvolume);
+//            Log.i("sharedvalueinstarting5",String.valueOf(newvolume5));
+//
+//        }
 
 //        volumeSeekBar3.setProgress(current3 - min3);
 //        audioManager1 = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -222,31 +286,102 @@ public class SecondActivity extends Activity {
 
 
 
+        {
+            try {
+                String stringPL = loadJSONFromAsset("progress.json");
+                Context context = getApplicationContext();
+
+                Resources resources = context.getResources();
+                JSONObject progressJson = new JSONObject(stringPL);
+
+                String playlistName=progressJson.getString("playlistjsonfile");
+                Log.i("progress content", playlistName);
+
+                JSONArray playlistNameArray = new JSONArray(playlistName);
+
+
+                for (int i=0; i <playlistNameArray.length(); i++){
+
+                    JSONObject playlistNameArrayPart = playlistNameArray.getJSONObject(i);
+
+                    String name = playlistNameArrayPart.getString("name");
+
+                    if(MainActivity.plname.equals(name)  ){
+
+                        songName.setText(MainActivity.plname);
+
+                         newprogress1 =playlistNameArrayPart.getInt("progress1");
+                         newprogress2 =playlistNameArrayPart.getInt("progress2");
+                         newprogress3 =playlistNameArrayPart.getInt("progress3");
+                         newprogress4 =playlistNameArrayPart.getInt("progress4");
+                         newprogress5 =playlistNameArrayPart.getInt("progress5");
+                        Log.i("progressjsonnew",String.valueOf(progress1));
+
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+
+
+                        volumeSeekBar1.setProgress(newprogress1);
+                        volumeSeekBar2.setProgress(newprogress2);
+                        volumeSeekBar3.setProgress(newprogress3);
+                        volumeSeekBar4.setProgress(newprogress4);
+                        volumeSeekBar4.setProgress(newprogress5);
+
+//                        float log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
+//                        float log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
+//                        float log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
+//                        float log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
+//                        float log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
+
+
+                        // get resource id by song song
+//                    final int resourceSongId1 = resources.getIdentifier(song1, "raw", context.getPackageName());
+//                    final int resourceSongId2 = resources.getIdentifier(song2, "raw", context.getPackageName());
+//                    final int resourceSongId3 = resources.getIdentifier(song3, "raw", context.getPackageName());
+//                    final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
+//                    final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
+
+                        Toast.makeText(getApplicationContext(),progress1+"hello",Toast.LENGTH_SHORT).show();
+
+
+                    }
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
         volumeSeekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
 
-                if (saveOption) {
+           /*     if (saveOption) {
 //                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
 
-                    mediaPlayer1.start();
-                    mediaPlayer1.setVolume(1-currentVolume,1-currentVolume);
-                    mediaPlayer1.setLooping(true);
+                    //mediaPlayer1.start();
+                    mediaPlayerRain.setVolume(1-newvolume,1-newvolume);
+                    mediaPlayerRain.setLooping(true);
                     Log.i("volume", String.valueOf(currentVolume));
                     volumeSeekBar1.setProgress(progress1);
 
 
                 }
-                else {
+                else {*/
                     progress1=progress;
                     Log.i("progress", String.valueOf(progress1));
                     log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
                     volumeSeekBar1.setProgress(progress1);
-                    mediaPlayer1.start();
-                    mediaPlayer1.setVolume(1 - log1, 1 - log1);
-                    mediaPlayer1.setLooping(true);
+                   // mediaPlayer1.start();
+                    mediaPlayerRain.setVolume(1-log1,1-log1);
+                    mediaPlayerRain.setLooping(true);
                     Log.i("logvalue", String.valueOf(log1));
+/*
                     saveMusic1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -254,7 +389,7 @@ public class SecondActivity extends Activity {
                                 log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
 
                                 currentVolume = log1;
-                                mediaPlayer1.setLooping(true);
+                                mediaPlayerRain.setLooping(true);
                                 sharedPreferenceValueBoolean=true;
                                 saveOption=false;
 
@@ -263,22 +398,23 @@ public class SecondActivity extends Activity {
                                 log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
 
                                 currentVolume = log1;
-                                mediaPlayer1.start();
-                                mediaPlayer1.setVolume(1 - currentVolume, 1 - currentVolume);
-                                mediaPlayer1.setLooping(true);
+                               // mediaPlayer1.start();
+                                mediaPlayerRain.setVolume(1-newvolume,1-newvolume);
+                                mediaPlayerRain.setLooping(true);
                                 saveOption=true;
 
-                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
-                                editor.putInt("currentProgress", progress1);
-                                editor.apply();
+//                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
+//                                editor.putInt("currentProgress", progress1);
+//                                editor.apply();
 
-                                Log.i("editorValue", String.valueOf(sharedpreferencesexit.getInt("currentProgress",10)));
+//                                Log.i("editorValue", String.valueOf(sharedpreferencesexit.getInt("currentProgress",10)));
                                 Log.i("currentvolumetesting", String.valueOf(currentVolume));
 
                             }
                         }
                     });
-                }
+*/
+                //}
             }
 
             @Override
@@ -292,17 +428,15 @@ public class SecondActivity extends Activity {
             }
         });
 
-
-
         volumeSeekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
                 if (saveOption2) {
 //                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
 
-                    mediaPlayer2.start();
-                    mediaPlayer2.setVolume(1-currentVolume2,1-currentVolume2);
-                    mediaPlayer2.setLooping(true);
+                   // mediaPlayer2.start();
+                    mediaPlayerRain2.setVolume(1-newvolume,1-newvolume);
+                    mediaPlayerRain2.setLooping(true);
                     Log.i("volume", String.valueOf(currentVolume2));
                     volumeSeekBar2.setProgress(progress2);
 
@@ -313,18 +447,19 @@ public class SecondActivity extends Activity {
                     Log.i("progress2", String.valueOf(progress2));
                     log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
 
-                    mediaPlayer2.start();
-                    mediaPlayer2.setVolume(1 - log2, 1 - log2);
-                    mediaPlayer2.setLooping(true);
+                    //mediaPlayer2.start();
+                    mediaPlayerRain2.setVolume(1-log2,1-log2);
+                    mediaPlayerRain2.setLooping(true);
                     Log.i("logvalue2", String.valueOf(log2));
                     //saveButton
+/*
                     saveMusic2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(saveOption2){
                                 log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
                                 currentVolume2 = log2;
-                                mediaPlayer2.setLooping(true);
+                                mediaPlayerRain2.setLooping(true);
                                 saveOption2=false;
 
                             }
@@ -332,21 +467,22 @@ public class SecondActivity extends Activity {
                                 log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
 
                                 currentVolume2 = log2;
-                                mediaPlayer2.start();
-                                mediaPlayer2.setVolume(1 - currentVolume2, 1 - currentVolume2);
-                                mediaPlayer2.setLooping(true);
+                               // mediaPlayer2.start();
+                                mediaPlayerRain2.setVolume(1-newvolume,1-newvolume);
+                                mediaPlayerRain2.setLooping(true);
                                 saveOption2=true;
 
-                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
-                                editor.putInt("currentProgress2", progress2);
-                                editor.apply();
+//                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
+//                                editor.putInt("currentProgress2", progress2);
+//                                editor.apply();
 
-                                Log.i("editorValue2", String.valueOf(sharedpreferencesexit.getInt("currentProgress2",10)));
+//                                Log.i("editorValue2", String.valueOf(sharedpreferencesexit.getInt("currentProgress2",10)));
                                 Log.i("currentvolumetesting2", String.valueOf(currentVolume2));
 
                             }
                         }
                     });
+*/
                 }
 
 
@@ -370,14 +506,11 @@ public class SecondActivity extends Activity {
                 if (saveOption3) {
 //                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
 
-                    mediaPlayer3.start();
-                    mediaPlayer3.setVolume(1-currentVolume3,1-currentVolume3);
-                    mediaPlayer3.setLooping(true);
+                    //mediaPlayer3.start();
+                    mediaPlayerRain3.setVolume(1-log3,1-log3);
+                    mediaPlayerRain4.setLooping(true);
                     Log.i("volume", String.valueOf(currentVolume3));
                     volumeSeekBar3.setProgress(progress3);
-
-
-
 
                 }
                 else {
@@ -385,18 +518,19 @@ public class SecondActivity extends Activity {
                     Log.i("progress3", String.valueOf(progress3));
                     log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
 
-                    mediaPlayer3.start();
-                    mediaPlayer3.setVolume(1 - log3, 1 - log3);
-                    mediaPlayer3.setLooping(true);
+                   // mediaPlayer3.start();
+                    mediaPlayerRain3.setVolume(1-log3,1-log3);
+                    mediaPlayerRain3.setLooping(true);
                     Log.i("logvalue3", String.valueOf(log3));
                     //saveButton
+/*
                     saveMusic3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(saveOption3){
                                 log3 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
                                 currentVolume3 = log3;
-                                mediaPlayer3.setLooping(true);
+                                mediaPlayerRain3.setLooping(true);
                                 saveOption3=false;
 
                             }
@@ -404,21 +538,22 @@ public class SecondActivity extends Activity {
                                 log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
 
                                 currentVolume3 = log3;
-                                mediaPlayer3.start();
-                                mediaPlayer3.setVolume(1 - currentVolume3, 1 - currentVolume3);
-                                mediaPlayer3.setLooping(true);
+                               // mediaPlayer3.start();
+                                mediaPlayerRain3.setVolume(1-newvolume,1-newvolume);
+                                mediaPlayerRain3.setLooping(true);
                                 saveOption3=true;
 
-                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
-                                editor.putInt("currentProgress3", progress3);
-                                editor.apply();
+//                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
+//                                editor.putInt("currentProgress3", progress3);
+//                                editor.apply();
 
-                                Log.i("editorValue3", String.valueOf(sharedpreferencesexit.getInt("currentProgress3",10)));
+                              //  Log.i("editorValue3", String.valueOf(sharedpreferencesexit.getInt("currentProgress3",10)));
                                 Log.i("currentvolumetesting3", String.valueOf(currentVolume3));
 
                             }
                         }
                     });
+*/
                 }
 
             }
@@ -440,9 +575,9 @@ public class SecondActivity extends Activity {
                 if (saveOption4) {
 //                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
 
-                    mediaPlayer4.start();
-                    mediaPlayer4.setVolume(1-currentVolume4,1-currentVolume4);
-                    mediaPlayer4.setLooping(true);
+                    //mediaPlayer4.start();
+                    mediaPlayerRain4.setVolume(1-log4,1-log4);
+                    mediaPlayerRain4.setLooping(true);
                     Log.i("volume", String.valueOf(currentVolume4));
                     volumeSeekBar4.setProgress(progress4);
 
@@ -453,18 +588,19 @@ public class SecondActivity extends Activity {
                     Log.i("progress4", String.valueOf(progress4));
                     log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
 
-                    mediaPlayer4.start();
-                    mediaPlayer4.setVolume(1 - log4, 1 - log4);
-                    mediaPlayer4.setLooping(true);
+                   // mediaPlayer4.start();
+                    mediaPlayerRain4.setVolume(1-log4,1-log4);
+                    mediaPlayerRain4.setLooping(true);
                     Log.i("logvalue4", String.valueOf(log4));
                     //saveButton
+/*
                     saveMusic4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(saveOption4){
                                 log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
                                 currentVolume4 = log4;
-                                mediaPlayer4.setLooping(true);
+                                mediaPlayerRain4.setLooping(true);
                                 saveOption4=false;
 
                             }
@@ -472,21 +608,22 @@ public class SecondActivity extends Activity {
                                 log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
 
                                 currentVolume4 = log4;
-                                mediaPlayer4.start();
-                                mediaPlayer4.setVolume(1 - currentVolume4, 1 - currentVolume4);
-                                mediaPlayer4.setLooping(true);
+                               // mediaPlayer4.start();
+                                mediaPlayerRain4.setVolume(1-newvolume,1-newvolume);
+                                mediaPlayerRain4.setLooping(true);
                                 saveOption4=true;
 
-                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
-                                editor.putInt("currentProgress4", progress4);
-                                editor.apply();
-
-                                Log.i("editorValue4", String.valueOf(sharedpreferencesexit.getInt("currentProgress4",10)));
+//                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
+//                                editor.putInt("currentProgress4", progress4);
+//                                editor.apply();
+//
+//                                Log.i("editorValue4", String.valueOf(sharedpreferencesexit.getInt("currentProgress4",10)));
                                 Log.i("currentvolumetesting4", String.valueOf(currentVolume4));
 
                             }
                         }
                     });
+*/
                 }
 
 
@@ -510,9 +647,9 @@ public class SecondActivity extends Activity {
                 if (saveOption5) {
 //                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
 
-                    mediaPlayer5.start();
-                    mediaPlayer5.setVolume(1-currentVolume5,1-currentVolume5);
-                    mediaPlayer5.setLooping(true);
+                    //mediaPlayer5.start();
+                    mediaPlayerRain5.setVolume(1-log5,1-log5);
+                    mediaPlayerRain5.setLooping(true);
                     Log.i("volume5", String.valueOf(currentVolume5));
                     volumeSeekBar5.setProgress(progress5);
 
@@ -523,18 +660,19 @@ public class SecondActivity extends Activity {
                     Log.i("progress5", String.valueOf(progress5));
                     log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
 
-                    mediaPlayer5.start();
-                    mediaPlayer5.setVolume(1 - log5, 1 - log5);
-                    mediaPlayer5.setLooping(true);
+                   // mediaPlayer5.start();
+                    mediaPlayerRain5.setVolume(1-log5,1-log5);
+                    mediaPlayerRain5.setLooping(true);
                     Log.i("logvalue5", String.valueOf(log5));
                     //saveButton
+/*
                     saveMusic5.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             if(saveOption5){
                                 log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
                                 currentVolume5 = log5;
-                                mediaPlayer5.setLooping(true);
+                                mediaPlayerRain5.setLooping(true);
                                 saveOption5=false;
 
                             }
@@ -542,21 +680,22 @@ public class SecondActivity extends Activity {
                                 log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
 
                                 currentVolume5 = log5;
-                                mediaPlayer5.start();
-                                mediaPlayer5.setVolume(1 - currentVolume5, 1 - currentVolume5);
-                                mediaPlayer5.setLooping(true);
+                               // mediaPlayer5.start();
+                                mediaPlayerRain5.setVolume(1 - currentVolume5, 1 - currentVolume5);
+                                mediaPlayerRain5.setLooping(true);
                                 saveOption5=true;
 
-                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
-                                editor.putInt("currentProgress5", progress5);
-                                editor.apply();
-
-                                Log.i("editorValue5", String.valueOf(sharedpreferencesexit.getInt("currentProgress5",10)));
+//                                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
+//                                editor.putInt("currentProgress5", progress5);
+//                                editor.apply();
+//
+//                                Log.i("editorValue5", String.valueOf(sharedpreferencesexit.getInt("currentProgress5",10)));
                                 Log.i("currentvolumetesting5", String.valueOf(currentVolume5));
 
                             }
                         }
                     });
+*/
                 }
 
 
@@ -574,52 +713,52 @@ public class SecondActivity extends Activity {
             }
         });
 
-    /*    saveAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
-                editor.putInt("currentProgress", progress1);
-                editor.putInt("currentProgress2", progress2);
-                editor.putInt("currentProgress3", progress3);
-                editor.putInt("currentProgress4", progress4);
-                editor.putInt("currentProgress5", progress5);
-                editor.apply();
+//       saveAll.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                SharedPreferences.Editor editor = sharedpreferencesexit.edit();
+////                editor.putInt("currentProgress", progress1);
+////                editor.putInt("currentProgress2", progress2);
+////                editor.putInt("currentProgress3", progress3);
+////                editor.putInt("currentProgress4", progress4);
+////                editor.putInt("currentProgress5", progress5);
+////                editor.apply();
+//
+//            }
+//        });
+//
 
-            }
-        });
-*/
-
-        saveAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (noteId != -1) {
-
-                }else {
-                    notes.add("");
-                    adapter.notifyDataSetChanged();
-                    noteId = notes.size() - 1;
-                }
-
-                notes.set(noteId, String.valueOf(progress1));
-                adapter.notifyDataSetChanged();
-                sharedPreferences = getApplicationContext()
-                        .getSharedPreferences("com.kitebe.wave", Context.MODE_PRIVATE);
-                HashSet<String> set = new HashSet<String>(notes);
-                sharedPreferences.edit().putStringSet("notes", set).apply();
-
-
-            }
-        });
+//        saveAll.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (noteId != -1) {
+//
+//                }else {
+//                    notes.add("");
+//                    adapter.notifyDataSetChanged();
+//                    noteId = notes.size() - 1;
+//                }
+//
+//                notes.set(noteId, String.valueOf(progress1));
+//                adapter.notifyDataSetChanged();
+//                sharedPreferences = getApplicationContext()
+//                        .getSharedPreferences("com.kitebe.wave", Context.MODE_PRIVATE);
+//                HashSet<String> set = new HashSet<String>(notes);
+//                sharedPreferences.edit().putStringSet("notes", set).apply();
+//
+//
+//            }
+//        });
 
         playList1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                volumeSeekBar1.setProgress(80);
-                volumeSeekBar2.setProgress(50);
-                volumeSeekBar3.setProgress(60);
-                volumeSeekBar4.setProgress(40);
-                volumeSeekBar5.setProgress(75);
+                volumeSeekBar1.setProgress(newprogress1);
+                volumeSeekBar2.setProgress(newprogress2);
+                volumeSeekBar3.setProgress(newprogress3);
+                volumeSeekBar4.setProgress(newprogress4);
+                volumeSeekBar5.setProgress(newprogress5);
 
             }
         });
@@ -627,11 +766,11 @@ public class SecondActivity extends Activity {
         playList2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                volumeSeekBar1.setProgress(40);
-                volumeSeekBar2.setProgress(80);
-                volumeSeekBar3.setProgress(20);
-                volumeSeekBar4.setProgress(80);
-                volumeSeekBar5.setProgress(45);
+                volumeSeekBar1.setProgress(newprogress1);
+                volumeSeekBar2.setProgress(newprogress2);
+                volumeSeekBar3.setProgress(newprogress3);
+                volumeSeekBar4.setProgress(newprogress4);
+                volumeSeekBar5.setProgress(newprogress5);
 
             }
         });
@@ -639,33 +778,61 @@ public class SecondActivity extends Activity {
         playList3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                volumeSeekBar1.setProgress(60);
-                volumeSeekBar2.setProgress(30);
-                volumeSeekBar3.setProgress(50);
-                volumeSeekBar4.setProgress(75);
-                volumeSeekBar5.setProgress(85);
+                volumeSeekBar1.setProgress(newprogress1);
+                volumeSeekBar2.setProgress(newprogress2);
+                volumeSeekBar3.setProgress(newprogress3);
+                volumeSeekBar4.setProgress(newprogress4);
+                volumeSeekBar5.setProgress(newprogress5);
 
             }
         });
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (mediaPlayerRain.isPlaying()) {
+                    mediaPlayerRain.pause();
+                    mediaPlayerRain2.pause();
+                    mediaPlayerRain3.pause();
+                    mediaPlayerRain4.pause();
+                    mediaPlayerRain5.pause();
+                    playButton.setBackgroundResource(R.drawable.playbutton);
+                    MainActivity.playbutton.setBackgroundResource(R.drawable.playbutton);
+
+
+
+                }else{
+                    mediaPlayerRain.start();
+                    mediaPlayerRain2.start();
+                    mediaPlayerRain3.start();
+                    mediaPlayerRain4.start();
+                    mediaPlayerRain5.start();
+                    playButton.setBackgroundResource(R.drawable.pausebutton);
+                    MainActivity.playbutton.setBackgroundResource(R.drawable.pausebutton);
+
+                }
+                isPlaying = !isPlaying;
+            }
+        });
+
 
     }
 
 
     public void onBackPressed() {
         super.onBackPressed();
-        mediaPlayer1.stop();
-        mediaPlayer2.stop();
-        mediaPlayer3.stop();
-        mediaPlayer4.stop();
-        mediaPlayer5.stop();
+//        mediaPlayer1.stop();
+//        mediaPlayer2.stop();
+//        mediaPlayer3.stop();
+//        mediaPlayer4.stop();
+//        mediaPlayer5.stop();
     }
     @Override
     protected void onStop() {
         super.onStop();
-        mediaPlayer1.stop();
-        mediaPlayer2.stop();
-        mediaPlayer3.stop();
-        mediaPlayer4.stop();
-        mediaPlayer5.stop();
+//        MainActivity.mediaPlayerRain.stop();
+//        MainActivity.mediaPlayerRain2.stop();
+//        MainActivity.mediaPlayerRain3.stop();
+//        MainActivity.mediaPlayerRain4.stop();
+//        MainActivity.mediaPlayerRain5.stop();
     }
 }

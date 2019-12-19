@@ -2,6 +2,7 @@ package com.kitebe.wave;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -9,6 +10,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -46,17 +48,14 @@ import java.util.List;
 import java.util.Locale;
 import android.view.View.OnKeyListener;
 
-import android.view.View;
-import android.view.KeyEvent;
-
 public class MainActivity extends AppCompatActivity {
     EditText cityName;
     TextView weatherTextView,temp,humidty,wind;
-    static TextView songName;
+    TextView songName;
     TextView coordTextView;
     AudioManager audioManager;
     static MediaPlayer mediaPlayerRain,mediaPlayerRain2,mediaPlayerRain3,mediaPlayerRain4,mediaPlayerRain5;
-    ImageView backgroungImage ;
+    ConstraintLayout backgroungImage ;
     String jsonMain;
     static String plname;
     static String weatherName;
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
     static String coordTempInformation;
     //song controller
-   static Button playbutton;
-   static boolean isPlaying = false;
+    static Button playbutton;
+   static boolean isPlayingBoolean = false;
 
     boolean loop;
     //current location
@@ -301,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),song1,Toast.LENGTH_SHORT).show();
 
                         // backgroungImage.setImageResource(R.drawable.rain);
-                        backgroungImage.setImageDrawable(drawable);
+                        backgroungImage.setBackgroundResource(resourceImageId);
 
                     }
 
@@ -495,6 +494,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        Configuration config = getResources().getConfiguration();
+//        if (config.smallestScreenWidthDp >= 600) {
+//            setContentView(R.layout.main_activity_tablet);
+//        } else {
+//            setContentView(R.layout.main_activity);
+//        }
+
         songList = findViewById(R.id.songList);
         songName = findViewById(R.id.songName);
 
@@ -502,10 +508,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent getSongList = new Intent(getApplicationContext(), SecondActivity.class);
+
                 startActivity(getSongList);
             }
         });
 
+        /*try {
+            if(!(mediaPlayerRain.isPlaying())||mediaPlayerRain.equals(null)){
+                playbutton.setBackgroundResource(R.drawable.playbutton);
+            }else {
+                playbutton.setBackgroundResource(R.drawable.pausebutton);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
 
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -626,27 +642,37 @@ public class MainActivity extends AppCompatActivity {
 
         playbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (mediaPlayerRain.isPlaying()) {
-                    mediaPlayerRain.pause();
-                    mediaPlayerRain2.pause();
-                    mediaPlayerRain3.pause();
-                    mediaPlayerRain4.pause();
-                    mediaPlayerRain5.pause();
-                    playbutton.setBackgroundResource(R.drawable.playbutton);
-                    SecondActivity.playButton.setBackgroundResource(R.drawable.playbutton);
+                try {
+                    if (mediaPlayerRain.isPlaying()) {
+                        mediaPlayerRain.pause();
+                        mediaPlayerRain2.pause();
+                        mediaPlayerRain3.pause();
+                        mediaPlayerRain4.pause();
+                        mediaPlayerRain5.pause();
+                        playbutton.setBackgroundResource(R.drawable.playbutton);
+                        try {
+                            SecondActivity.playButton.setBackgroundResource(R.drawable.playbutton);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }else{
+                        mediaPlayerRain.start();
+                        mediaPlayerRain2.start();
+                        mediaPlayerRain3.start();
+                        mediaPlayerRain4.start();
+                        mediaPlayerRain5.start();
+                        playbutton.setBackgroundResource(R.drawable.pausebutton);
+                        try {
+                            SecondActivity.playButton.setBackgroundResource(R.drawable.pausebutton);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
-
-                }else{
-                    mediaPlayerRain.start();
-                    mediaPlayerRain2.start();
-                    mediaPlayerRain3.start();
-                    mediaPlayerRain4.start();
-                    mediaPlayerRain5.start();
-                    playbutton.setBackgroundResource(R.drawable.pausebutton);
-                    SecondActivity.playButton.setBackgroundResource(R.drawable.pausebutton);
-
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                isPlaying = !isPlaying;
+                isPlayingBoolean = !isPlayingBoolean;
             }
         });
     }
@@ -658,10 +684,9 @@ public class MainActivity extends AppCompatActivity {
 //        mediaPlayerRain.stop();
 //        mediaPlayerRain2.stop();
 //        mediaPlayerRain3.stop();
-//        mediaPlayerRain4.stop();
-        mediaPlayerRain5.stop();
-
-
+//        mediaPlayerRain4.stop();//
+//        mediaPlayerRain5.stop();
+        mediaStop();
         locationManager.removeUpdates(locationListener);
 
     }
@@ -669,11 +694,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-//        mediaPlayerRain.stop();
-//        mediaPlayerRain2.stop();
-//        mediaPlayerRain3.stop();
-//        mediaPlayerRain4.stop();
-//        mediaPlayerRain5.stop();
+//       mediaStop();
         locationManager.removeUpdates(locationListener);
 
     }
@@ -690,12 +711,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //widget
+    public void mediaStop(){
+        mediaPlayerRain.stop();
+        mediaPlayerRain2.stop();
+        mediaPlayerRain3.stop();
+        mediaPlayerRain4.stop();
+        mediaPlayerRain5.stop();
+    }
+
+    /*//widget
     @Override
     protected void onResume() {
         super.onResume();
         int clicks = getSharedPreferences("sp", MODE_PRIVATE).getInt("clicks", 0);
         ((TextView) findViewById(R.id.clicksTextView)).setText(String.valueOf(clicks));
-    }
+    }*/
 }
 

@@ -19,10 +19,10 @@
     },{
       "name": "Clouds",
       "progress1":"10",
-      "progress2":"10",
-      "progress3":"10",
-      "progress4":"3",
-      "progress5":"1"
+      "progress2":"20",
+      "progress3":"20",
+      "progress4":"50",
+      "progress5":"90"
     },
     {
       "name": "Thunderstorm",

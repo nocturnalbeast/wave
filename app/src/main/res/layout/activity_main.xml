@@ -4,20 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/backgroundImage"
+android:background="@drawable/group559"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/backgroundImage"
-        android:layout_width="426dp"
-        android:layout_height="732dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/group559" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -49,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Cochin"
+            android:fontFamily="@font/robotoslablight"
             android:inputType="textPersonName"
             android:textColor="@android:color/background_light"
             android:background="@android:color/transparent"
@@ -63,6 +55,7 @@
         android:fontFamily=""
         android:text="27&#xb0;C"
         android:textSize="78dp"
+        app:fontFamily="@font/robotoslabthin"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.124"
@@ -194,10 +187,10 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintHorizontal_bias="0.025"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundImage"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.727" />
 
     <TextView
         android:id="@+id/coordTextView"
@@ -214,27 +207,7 @@
         app:layout_constraintTop_toBottomOf="@+id/weatherTextView"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Clicks"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/weatherTextView"
-        app:layout_constraintEnd_toEndOf="@+id/clicksTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/coordTextView" />
 
-    <TextView
-        android:id="@+id/clicksTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/weatherTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/coordTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

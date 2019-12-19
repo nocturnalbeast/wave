@@ -2,17 +2,14 @@ package com.kitebe.wave;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -30,7 +27,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static com.kitebe.wave.MainActivity.isPlaying;
+import static com.kitebe.wave.MainActivity.isPlayingBoolean;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain2;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain3;
@@ -44,8 +41,9 @@ public class SecondActivity extends Activity {
     SharedPreferences sharedPreferences;
     int noteId=-1;
     TextView songName;
-   static Button playButton;
+    static Button playButton;
    int newprogress1,newprogress2,newprogress3,newprogress4,newprogress5;
+   Button songList;
 
 
     //MediaPlayer mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5;
@@ -53,7 +51,7 @@ public class SecondActivity extends Activity {
     float log1,log2,log3,log4,log5, newvolume,newvolume2,newvolume3,newvolume4,newvolume5;
     int progress1,progress2,progress3,progress4,progress5;
     //saveMusic button
-    Button saveMusic1,saveMusic2,saveMusic3,saveMusic4,saveMusic5,playList1,playList2,playList3,saveAll;
+    Button saveMusic1,saveMusic2,saveMusic3,saveMusic4,saveMusic5,playList1,playList2,playList3,playList4,playList5,playList6,playList7,playList8,playList9,playList10,playList11,playList12,saveAll;
     boolean saveOption = false,saveOption2 = false,saveOption3 = false,saveOption4 = false,saveOption5 = false, sharedPreferenceValueBoolean=false;
     float currentVolume,currentVolume2,currentVolume3,currentVolume4,currentVolume5;
     //SharedPreferences sharedpreferencesexit;
@@ -136,6 +134,26 @@ public class SecondActivity extends Activity {
         volumeSeekBar4 = findViewById(R.id.volumeSeekBar4);
         volumeSeekBar5 = findViewById(R.id.volumeSeekBar5);
 
+        songList = findViewById(R.id.songList);
+        songList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+            }
+        });
+
+
+      /*  try {
+            if(isPlayingBoolean){
+                playButton.setBackgroundResource(R.drawable.pausebutton);
+            }else {
+                playButton.setBackgroundResource(R.drawable.playbutton);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+*/
         sharedPreferences = getApplicationContext()
                 .getSharedPreferences("com.kitebe.wave", Context.MODE_PRIVATE);
         HashSet<String> set = (HashSet<String>) sharedPreferences.getStringSet("notes", null);
@@ -147,8 +165,6 @@ public class SecondActivity extends Activity {
         }
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
-        ListView listView =  findViewById(R.id.listView);
-        listView.setAdapter(adapter);
 
 
         //saveMusic button
@@ -163,6 +179,15 @@ public class SecondActivity extends Activity {
         playList1 = findViewById(R.id.playList1);
         playList2 = findViewById(R.id.playList2);
         playList3 = findViewById(R.id.playList3);
+        playList4 = findViewById(R.id.playList4);
+        playList5 = findViewById(R.id.playList5);
+        playList6 = findViewById(R.id.playList6);
+        playList7 = findViewById(R.id.playList7);
+        playList8 = findViewById(R.id.playList8);
+        playList9 = findViewById(R.id.playList9);
+        playList10 = findViewById(R.id.playList10);
+        playList11= findViewById(R.id.playList11);
+        playList12= findViewById(R.id.playList12);
         songName = findViewById(R.id.songName);
         playButton = findViewById(R.id.playButton);
 
@@ -306,25 +331,31 @@ public class SecondActivity extends Activity {
 
                     String name = playlistNameArrayPart.getString("name");
 
-                    if(MainActivity.plname.equals(name)  ){
+                    try {
+                        if(MainActivity.plname.equals(name)  ){
 
-                        songName.setText(MainActivity.plname);
+                            songName.setText(MainActivity.plname);
 
-                         newprogress1 =playlistNameArrayPart.getInt("progress1");
-                         newprogress2 =playlistNameArrayPart.getInt("progress2");
-                         newprogress3 =playlistNameArrayPart.getInt("progress3");
-                         newprogress4 =playlistNameArrayPart.getInt("progress4");
-                         newprogress5 =playlistNameArrayPart.getInt("progress5");
-                        Log.i("progressjsonnew",String.valueOf(progress1));
+                            newprogress1 =playlistNameArrayPart.getInt("progress1");
+                            newprogress2 =playlistNameArrayPart.getInt("progress2");
+                            newprogress3 =playlistNameArrayPart.getInt("progress3");
+                            newprogress4 =playlistNameArrayPart.getInt("progress4");
+                            newprogress5 =playlistNameArrayPart.getInt("progress5");
+                            Log.i("progressjsonnew",String.valueOf(progress1));
 
-                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                            if(mediaPlayerRain.isPlaying()){
+                                playButton.setBackgroundResource(R.drawable.pausebutton);
+                            }else {
+                                playButton.setBackgroundResource(R.drawable.playbutton);
+
+                            }
 
 
-                        volumeSeekBar1.setProgress(newprogress1);
-                        volumeSeekBar2.setProgress(newprogress2);
-                        volumeSeekBar3.setProgress(newprogress3);
-                        volumeSeekBar4.setProgress(newprogress4);
-                        volumeSeekBar4.setProgress(newprogress5);
+                            volumeSeekBar1.setProgress(newprogress1);
+                            volumeSeekBar2.setProgress(newprogress2);
+                            volumeSeekBar3.setProgress(newprogress3);
+                            volumeSeekBar4.setProgress(newprogress4);
+                            volumeSeekBar5.setProgress(newprogress5);
 
 //                        float log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
 //                        float log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
@@ -333,16 +364,19 @@ public class SecondActivity extends Activity {
 //                        float log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
 
 
-                        // get resource id by song song
+                            // get resource id by song song
 //                    final int resourceSongId1 = resources.getIdentifier(song1, "raw", context.getPackageName());
 //                    final int resourceSongId2 = resources.getIdentifier(song2, "raw", context.getPackageName());
 //                    final int resourceSongId3 = resources.getIdentifier(song3, "raw", context.getPackageName());
 //                    final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
 //                    final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
 
-                        Toast.makeText(getApplicationContext(),progress1+"hello",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),progress1+"hello",Toast.LENGTH_SHORT).show();
 
 
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
                 }
@@ -356,10 +390,11 @@ public class SecondActivity extends Activity {
 
 
 
-        volumeSeekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        try {
+            volumeSeekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-            @Override
-            public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
+                @Override
+                public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
 
            /*     if (saveOption) {
 //                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
@@ -373,13 +408,19 @@ public class SecondActivity extends Activity {
 
                 }
                 else {*/
-                    progress1=progress;
+                    try {
+
+                        progress1=progress;
                     Log.i("progress", String.valueOf(progress1));
                     log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
                     volumeSeekBar1.setProgress(progress1);
-                   // mediaPlayer1.start();
-                    mediaPlayerRain.setVolume(1-log1,1-log1);
-                    mediaPlayerRain.setLooping(true);
+                    // mediaPlayer1.start();
+                        mediaPlayerRain.setVolume(1-log1,1-log1);
+                        mediaPlayerRain.setLooping(true);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     Log.i("logvalue", String.valueOf(log1));
 /*
                     saveMusic1.setOnClickListener(new View.OnClickListener() {
@@ -414,43 +455,51 @@ public class SecondActivity extends Activity {
                         }
                     });
 */
-                //}
-            }
+                    //}
+                }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar volumeSeekBar1) {
+                @Override
+                public void onStartTrackingTouch(SeekBar volumeSeekBar1) {
 
-            }
+                }
 
-            @Override
-            public void onStopTrackingTouch(SeekBar volumeSeekBar1) {
+                @Override
+                public void onStopTrackingTouch(SeekBar volumeSeekBar1) {
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         volumeSeekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
-                if (saveOption2) {
-//                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//                if (saveOption2) {
+////                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//
+//                   // mediaPlayer2.start();
+//                    mediaPlayerRain2.setVolume(1-newvolume,1-newvolume);
+//                    mediaPlayerRain2.setLooping(true);
+//                    Log.i("volume", String.valueOf(currentVolume2));
+//                    volumeSeekBar2.setProgress(progress2);
+//
+//
+//                }
 
-                   // mediaPlayer2.start();
-                    mediaPlayerRain2.setVolume(1-newvolume,1-newvolume);
-                    mediaPlayerRain2.setLooping(true);
-                    Log.i("volume", String.valueOf(currentVolume2));
-                    volumeSeekBar2.setProgress(progress2);
+                   try {
+                       progress2 = progress;
 
-
-                }
-                else {
-                    progress2=progress;
-                    Log.i("progress2", String.valueOf(progress2));
-                    log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
-
-                    //mediaPlayer2.start();
-                    mediaPlayerRain2.setVolume(1-log2,1-log2);
-                    mediaPlayerRain2.setLooping(true);
-                    Log.i("logvalue2", String.valueOf(log2));
+                       Log.i("progress2", String.valueOf(progress2));
+                       log2 = (float) (Math.log(100 - (progress2 - 1)) / Math.log(100));
+                       volumeSeekBar2.setProgress(progress2);
+                       //mediaPlayer2.start();
+                       mediaPlayerRain2.setVolume(1 - log2, 1 - log2);
+                       mediaPlayerRain2.setLooping(true);
+                       Log.i("logvalue2", String.valueOf(log2));
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
                     //saveButton
 /*
                     saveMusic2.setOnClickListener(new View.OnClickListener() {
@@ -483,7 +532,7 @@ public class SecondActivity extends Activity {
                         }
                     });
 */
-                }
+
 
 
             }
@@ -503,26 +552,27 @@ public class SecondActivity extends Activity {
         volumeSeekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar volumeSeekBar3, int progress, boolean fromUser) {
-                if (saveOption3) {
-//                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+                try {
+//                    if (saveOption3) {
+////                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//
+//                        //mediaPlayer3.start();
+//                        mediaPlayerRain3.setVolume(1-log3,1-log3);
+//                        mediaPlayerRain4.setLooping(true);
+//                        Log.i("volume", String.valueOf(currentVolume3));
+//                        volumeSeekBar3.setProgress(progress3);
+//
+//                    }
 
-                    //mediaPlayer3.start();
-                    mediaPlayerRain3.setVolume(1-log3,1-log3);
-                    mediaPlayerRain4.setLooping(true);
-                    Log.i("volume", String.valueOf(currentVolume3));
-                    volumeSeekBar3.setProgress(progress3);
-
-                }
-                else {
-                    progress3=progress;
-                    Log.i("progress3", String.valueOf(progress3));
-                    log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
-
-                   // mediaPlayer3.start();
-                    mediaPlayerRain3.setVolume(1-log3,1-log3);
-                    mediaPlayerRain3.setLooping(true);
-                    Log.i("logvalue3", String.valueOf(log3));
-                    //saveButton
+                        progress3=progress;
+                        Log.i("progress3", String.valueOf(progress3));
+                        log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
+                        volumeSeekBar3.setProgress(progress3);
+                        // mediaPlayer3.start();
+                        mediaPlayerRain3.setVolume(1-log3,1-log3);
+                        mediaPlayerRain3.setLooping(true);
+                        Log.i("logvalue3", String.valueOf(log3));
+                        //saveButton
 /*
                     saveMusic3.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -554,6 +604,9 @@ public class SecondActivity extends Activity {
                         }
                     });
 */
+
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
 
             }
@@ -572,26 +625,31 @@ public class SecondActivity extends Activity {
         volumeSeekBar4.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
-                if (saveOption4) {
-//                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//                if (saveOption4) {
+////                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//
+//                    //mediaPlayer4.start();
+//                    mediaPlayerRain4.setVolume(1-log4,1-log4);
+//                    mediaPlayerRain4.setLooping(true);
+//                    Log.i("volume", String.valueOf(currentVolume4));
+//                    volumeSeekBar4.setProgress(progress4);
+//
+//
+//                }
 
-                    //mediaPlayer4.start();
-                    mediaPlayerRain4.setVolume(1-log4,1-log4);
-                    mediaPlayerRain4.setLooping(true);
-                    Log.i("volume", String.valueOf(currentVolume4));
-                    volumeSeekBar4.setProgress(progress4);
+                   try {
+                       progress4 = progress;
 
+                       Log.i("progress4", String.valueOf(progress4));
+                       log4 = (float) (Math.log(100 - (progress4 - 1)) / Math.log(100));
 
-                }
-                else {
-                    progress4=progress;
-                    Log.i("progress4", String.valueOf(progress4));
-                    log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
-
-                   // mediaPlayer4.start();
-                    mediaPlayerRain4.setVolume(1-log4,1-log4);
-                    mediaPlayerRain4.setLooping(true);
-                    Log.i("logvalue4", String.valueOf(log4));
+                       // mediaPlayer4.start();
+                       mediaPlayerRain4.setVolume(1 - log4, 1 - log4);
+                       mediaPlayerRain4.setLooping(true);
+                       Log.i("logvalue4", String.valueOf(log4));
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
                     //saveButton
 /*
                     saveMusic4.setOnClickListener(new View.OnClickListener() {
@@ -624,7 +682,7 @@ public class SecondActivity extends Activity {
                         }
                     });
 */
-                }
+
 
 
             }
@@ -644,26 +702,32 @@ public class SecondActivity extends Activity {
         volumeSeekBar5.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar volumeSeekBar, final int progress, boolean fromUser) {
-                if (saveOption5) {
-//                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//                if (saveOption5) {
+////                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
+//
+//                    //mediaPlayer5.start();
+//                    mediaPlayerRain5.setVolume(1-log5,1-log5);
+//                    mediaPlayerRain5.setLooping(true);
+//                    Log.i("volume5", String.valueOf(currentVolume5));
+//                    volumeSeekBar5.setProgress(progress5);
+//
+//
+//                }
+               try {
 
-                    //mediaPlayer5.start();
-                    mediaPlayerRain5.setVolume(1-log5,1-log5);
-                    mediaPlayerRain5.setLooping(true);
-                    Log.i("volume5", String.valueOf(currentVolume5));
-                    volumeSeekBar5.setProgress(progress5);
 
-
-                }
-                else {
-                    progress5=progress;
-                    Log.i("progress5", String.valueOf(progress5));
-                    log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
-
+                   progress5 = progress;
+                   Log.i("progress5", String.valueOf(progress5));
+                   log5 = (float) (Math.log(100 - (progress5 - 1)) / Math.log(100));
+                   volumeSeekBar5.setProgress(progress5);
                    // mediaPlayer5.start();
-                    mediaPlayerRain5.setVolume(1-log5,1-log5);
-                    mediaPlayerRain5.setLooping(true);
-                    Log.i("logvalue5", String.valueOf(log5));
+                   mediaPlayerRain5.setVolume(1 - log5, 1 - log5);
+                   mediaPlayerRain5.setLooping(true);
+                   Log.i("logvalue5", String.valueOf(log5));
+
+               }catch (Exception e){
+                   e.printStackTrace();
+               }
                     //saveButton
 /*
                     saveMusic5.setOnClickListener(new View.OnClickListener() {
@@ -696,7 +760,7 @@ public class SecondActivity extends Activity {
                         }
                     });
 */
-                }
+
 
 
             }
@@ -751,66 +815,229 @@ public class SecondActivity extends Activity {
 //            }
 //        });
 
-        playList1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                volumeSeekBar1.setProgress(newprogress1);
-                volumeSeekBar2.setProgress(newprogress2);
-                volumeSeekBar3.setProgress(newprogress3);
-                volumeSeekBar4.setProgress(newprogress4);
-                volumeSeekBar5.setProgress(newprogress5);
+        try {
+            playList1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(20);
+                    volumeSeekBar2.setProgress(40);
+                    volumeSeekBar3.setProgress(30);
+                    volumeSeekBar4.setProgress(40);
+                    volumeSeekBar5.setProgress(50);
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        playList2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                volumeSeekBar1.setProgress(newprogress1);
-                volumeSeekBar2.setProgress(newprogress2);
-                volumeSeekBar3.setProgress(newprogress3);
-                volumeSeekBar4.setProgress(newprogress4);
-                volumeSeekBar5.setProgress(newprogress5);
+        try {
+            playList2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(10);
+                    volumeSeekBar2.setProgress(50);
+                    volumeSeekBar3.setProgress(40);
+                    volumeSeekBar4.setProgress(70);
+                    volumeSeekBar5.setProgress(50);
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-        playList3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                volumeSeekBar1.setProgress(newprogress1);
-                volumeSeekBar2.setProgress(newprogress2);
-                volumeSeekBar3.setProgress(newprogress3);
-                volumeSeekBar4.setProgress(newprogress4);
-                volumeSeekBar5.setProgress(newprogress5);
+        try {
+            playList3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(20);
+                    volumeSeekBar2.setProgress(40);
+                    volumeSeekBar3.setProgress(70);
+                    volumeSeekBar4.setProgress(30);
+                    volumeSeekBar5.setProgress(20);
 
-            }
-        });
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            playList4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(70);
+                    volumeSeekBar2.setProgress(20);
+                    volumeSeekBar3.setProgress(70);
+                    volumeSeekBar4.setProgress(50);
+                    volumeSeekBar5.setProgress(20);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            playList5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(20);
+                    volumeSeekBar2.setProgress(70);
+                    volumeSeekBar3.setProgress(40);
+                    volumeSeekBar4.setProgress(40);
+                    volumeSeekBar5.setProgress(50);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            playList6.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(10);
+                    volumeSeekBar2.setProgress(20);
+                    volumeSeekBar3.setProgress(40);
+                    volumeSeekBar4.setProgress(10);
+                    volumeSeekBar5.setProgress(50);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            playList7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(20);
+                    volumeSeekBar2.setProgress(40);
+                    volumeSeekBar3.setProgress(40);
+                    volumeSeekBar4.setProgress(30);
+                    volumeSeekBar5.setProgress(20);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            playList8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(70);
+                    volumeSeekBar2.setProgress(40);
+                    volumeSeekBar3.setProgress(70);
+                    volumeSeekBar4.setProgress(30);
+                    volumeSeekBar5.setProgress(20);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            playList9.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(100);
+                    volumeSeekBar2.setProgress(10);
+                    volumeSeekBar3.setProgress(10);
+                    volumeSeekBar4.setProgress(20);
+                    volumeSeekBar5.setProgress(30);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            playList10.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(40);
+                    volumeSeekBar2.setProgress(50);
+                    volumeSeekBar3.setProgress(100);
+                    volumeSeekBar4.setProgress(10);
+                    volumeSeekBar5.setProgress(20);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            playList11.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(50);
+                    volumeSeekBar2.setProgress(80);
+                    volumeSeekBar3.setProgress(70);
+                    volumeSeekBar4.setProgress(40);
+                    volumeSeekBar5.setProgress(20);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            playList12.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    volumeSeekBar1.setProgress(80);
+                    volumeSeekBar2.setProgress(40);
+                    volumeSeekBar3.setProgress(80);
+                    volumeSeekBar4.setProgress(50);
+                    volumeSeekBar5.setProgress(20);
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (mediaPlayerRain.isPlaying()) {
-                    mediaPlayerRain.pause();
-                    mediaPlayerRain2.pause();
-                    mediaPlayerRain3.pause();
-                    mediaPlayerRain4.pause();
-                    mediaPlayerRain5.pause();
-                    playButton.setBackgroundResource(R.drawable.playbutton);
-                    MainActivity.playbutton.setBackgroundResource(R.drawable.playbutton);
+                try {
+                    if (mediaPlayerRain.isPlaying()) {
+                        mediaPlayerRain.pause();
+                        mediaPlayerRain2.pause();
+                        mediaPlayerRain3.pause();
+                        mediaPlayerRain4.pause();
+                        mediaPlayerRain5.pause();
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+                        try {
+                            MainActivity.playbutton.setBackgroundResource(R.drawable.playbutton);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
 
 
-                }else{
-                    mediaPlayerRain.start();
-                    mediaPlayerRain2.start();
-                    mediaPlayerRain3.start();
-                    mediaPlayerRain4.start();
-                    mediaPlayerRain5.start();
-                    playButton.setBackgroundResource(R.drawable.pausebutton);
-                    MainActivity.playbutton.setBackgroundResource(R.drawable.pausebutton);
+                    }else{
+                        mediaPlayerRain.start();
+                        mediaPlayerRain2.start();
+                        mediaPlayerRain3.start();
+                        mediaPlayerRain4.start();
+                        mediaPlayerRain5.start();
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                        try {
+                            MainActivity.playbutton.setBackgroundResource(R.drawable.pausebutton);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-                isPlaying = !isPlaying;
+                isPlayingBoolean = !isPlayingBoolean;
             }
         });
 

@@ -178,8 +178,10 @@
         android:layout_marginStart="52dp"
         android:layout_marginLeft="52dp"
         android:layout_marginTop="52dp"
+        android:fontFamily="@font/poppinsbold"
         android:text="Popular"
         android:textColor="#FFFF"
+        android:textSize="12dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -212,7 +214,8 @@
             android:background="@drawable/rectangle"
             android:text="playlist1"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList2"
@@ -222,7 +225,8 @@
             android:background="@drawable/rectangle2"
             android:text="playlist2"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList3"
@@ -232,7 +236,8 @@
             android:background="@drawable/rectangle3"
             android:text="playlist3"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList4"
@@ -241,7 +246,8 @@
             android:background="@drawable/rectangle"
             android:text="playlist4"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
     </LinearLayout>
 
@@ -266,7 +272,8 @@
             android:background="@drawable/rectangle"
             android:text="playlist5"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList6"
@@ -276,7 +283,8 @@
             android:background="@drawable/rectangle2"
             android:text="playlist6"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList7"
@@ -286,7 +294,8 @@
             android:background="@drawable/rectangle3"
             android:text="playlist7"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList8"
@@ -295,7 +304,8 @@
             android:background="@drawable/rectangle"
             android:text="playlist8"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
     </LinearLayout>
 
@@ -321,7 +331,8 @@
             android:background="@drawable/rectangle"
             android:text="playlist9"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList10"
@@ -331,7 +342,8 @@
             android:background="@drawable/rectangle2"
             android:text="playlist10"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList11"
@@ -341,7 +353,8 @@
             android:background="@drawable/rectangle3"
             android:text="playlist11"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
         <Button
             android:id="@+id/playList12"
@@ -350,7 +363,8 @@
             android:background="@drawable/rectangle"
             android:text="playlist12"
             android:textSize="10dp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/poppinsbold"
+            />
 
     </LinearLayout>
 
@@ -375,11 +389,11 @@
             android:layout_width="50dp"
             android:layout_height="42dp"
             android:background="@drawable/rectangle"
+            android:fontFamily="@font/poppinsbold"
             android:padding="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="3dp"
             android:text="File name"
-            android:textSize="14dp"
-            />
+            android:textSize="9dp" />
 
         <TextView
             android:id="@+id/songName"
@@ -387,23 +401,24 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppinsbold"
             android:text="summer 1"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/playButton"
-            android:layout_width="24dp"
+            android:layout_width="23dp"
             android:layout_height="25dp"
             android:layout_marginLeft="62dp"
-            android:layout_marginTop="8dp" />
-
+            android:layout_marginTop="12dp" />
         <Button
             android:id="@+id/songList"
             android:layout_width="26dp"
             android:layout_height="27dp"
             android:layout_marginLeft="62dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/sign4" />
     </LinearLayout>
 

@@ -70,6 +70,7 @@ android:background="@drawable/group559"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="60dp"
+        android:minHeight="20dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,20 +91,28 @@ android:background="@drawable/group559"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="8dp"
-            android:text="40%" />
+            android:fontFamily="@font/robotoslablight"
+            android:text="40%"
+            android:textSize="15dp"
+            />
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="2dp"
-            app:srcCompat="@drawable/sign3" />
+            android:fontFamily="@font/robotoslablight"
+            app:srcCompat="@drawable/sign3"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:paddingRight="8dp"
-            android:text="20%" />
+            android:text="20%"
+            android:textSize="15dp"
+            android:fontFamily="@font/robotoslablight"
+            />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -116,8 +125,10 @@ android:background="@drawable/group559"
             android:id="@+id/wind"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:fontFamily="@font/robotoslablight"
             android:paddingRight="6dp"
-            android:text="15%" />
+            android:text="15%"
+            android:textSize="15dp" />
 
 
     </LinearLayout>
@@ -141,12 +152,11 @@ android:background="@drawable/group559"
             android:layout_width="50dp"
             android:layout_height="42dp"
             android:background="@drawable/rectangle"
+            android:fontFamily="@font/poppinsbold"
             android:padding="5dp"
-            android:paddingRight="5dp"
+            android:paddingLeft="3dp"
             android:text="File name"
-            android:textSize="14dp"
-
-            />
+            android:textSize="9dp" />
 
         <TextView
             android:id="@+id/songName"
@@ -154,24 +164,24 @@ android:background="@drawable/group559"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppinsbold"
             android:text="summer 1"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textStyle="bold" />
-
 
         <Button
             android:id="@+id/playbutton"
             android:layout_width="23dp"
             android:layout_height="25dp"
             android:layout_marginLeft="62dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="12dp" />
 
         <ImageButton
             android:id="@+id/songList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="62dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/sign4" />
     </LinearLayout>

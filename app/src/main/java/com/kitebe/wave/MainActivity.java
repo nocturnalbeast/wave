@@ -1,6 +1,7 @@
 package com.kitebe.wave;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -28,7 +30,10 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -44,13 +50,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import android.view.View.OnKeyListener;
 
 public class MainActivity extends AppCompatActivity {
-    EditText cityName;
-    TextView weatherTextView,temp,humidty,wind;
+//    EditText cityName;
+    AutoCompleteTextView autoSuggestion;
+    TextView weatherTextView,temp,humidty,wind,clouds;
     TextView songName;
     TextView coordTextView;
     AudioManager audioManager;
@@ -121,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     addresss = listAddresses.get(0).getSubLocality() + "\n";
                     Log.i("current location:",addresss);
                     try {
-////                        mediaPlayerRain.reset();
+//                        mediaPlayerRain.reset();
 //                        mediaPlayerRain2.reset();
 //                        mediaPlayerRain3.reset();
 //                        mediaPlayerRain4.reset();
@@ -205,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
@@ -322,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(plname.equals(name)  ){
 
+
                         songName.setText(plname);
                         int  progress1 =playlistNameArrayPart.getInt("progress1");
                         int  progress2 =playlistNameArrayPart.getInt("progress2");
@@ -397,11 +407,17 @@ public class MainActivity extends AppCompatActivity {
                 coordTempInformation = coordObject.getString("temp");
                 String coordPressureInformation = coordObject.getString("pressure");
                 String coordHumidityInformation = coordObject.getString("humidity");
+                int tempInt = Integer.parseInt(String.valueOf(coordTempInformation));
+                String tempString = String.valueOf(tempInt);
+                Log.i("tempInt", String.valueOf(tempInt));
+
 
 
                 if(!coordTempInformation.equals("")) {
                    // coordTextView.setText("temp:"+coordTempInformation+"\u2103"+"\rpressure:"+coordPressureInformation+""+"\nHumidity:"+coordHumidityInformation);
-                    temp.setText(coordTempInformation+"\u2103");
+                    temp.setText(coordTempInformation);
+//                    Typeface typeface = getResources().getFont(R.font.robotoslabthin);
+//                    temp.setTypeface(typeface);
 
                     humidty.setText(coordHumidityInformation+"%");
 
@@ -436,6 +452,35 @@ public class MainActivity extends AppCompatActivity {
 
 
                     wind.setText(test+"Km/h");
+
+
+
+                }else {
+                    Toast.makeText(getApplicationContext(),"could not find coord Information :",Toast.LENGTH_LONG).show();
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(),"could not load the coord information :",Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+
+            }
+
+            try {
+                JSONObject jsonCloudObject = new JSONObject(s);
+                //{"coord":{"lon":76.25,"lat":9.96},"weather":[{"id":721,"main":"Haze","description":"haze","icon":"50d"}],"base":"stations","main":{"temp":31,"pressure":1011,"humidity":66,"temp_min":31,"temp_max":31},"visibility":4000,"wind":{"speed":1.5,"deg":210},"clouds":{"all":96},"dt":1573623100,"sys":{"type":1,"id":9211,"country":"IN","sunrise":1573606121,"sunset":1573648193},"timezone":19800,"id":1273874,"name":"Kochi","cod":200}
+
+                String coordInfo = jsonCloudObject.getString("clouds");
+                Log.i("coord content", coordInfo);
+
+//                JSONArray coordInfoArray = new JSONArray(coordInfo);
+
+                JSONObject coordObject= new JSONObject(coordInfo);
+                String coordCloudInformation = coordObject.getString("all");
+
+
+                if(!coordCloudInformation.equals("")) {
+
+                    clouds.setText(coordCloudInformation+"%");
 
 
 
@@ -534,7 +579,7 @@ public class MainActivity extends AppCompatActivity {
        // equilizer=findViewById(R.id.equilizer);
         // hazeImage = findViewById(R.id.hazeImage);
 
-        cityName = findViewById(R.id.cityName);
+//        cityName = findViewById(R.id.cityName);
         weatherTextView = findViewById(R.id.weatherTextView);
         coordTextView = findViewById(R.id. coordTextView);
 
@@ -545,7 +590,53 @@ public class MainActivity extends AppCompatActivity {
        // currentLocation = findViewById(R.id.currentLocation);
         humidty = findViewById(R.id.humidity);
         wind = findViewById(R.id.wind);
+        clouds = findViewById(R.id.clouds);
 
+
+
+
+
+//
+// Get the string array
+        List<String> responseList = new ArrayList<String>();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, responseList);
+
+        autoSuggestion = findViewById(R.id.autocomplete_country);
+
+        autoSuggestion.setAdapter(adapter);
+
+
+        try {
+            String stringLocation = loadJSONFromAsset("location.json");
+            Context context = getApplicationContext();
+
+            Resources resources = context.getResources();
+            JSONObject locationJson = new JSONObject(stringLocation);
+
+            String locationName = locationJson.getString("countries_array_json");
+            Log.i("countries_array", locationName);
+
+            JSONArray locationNameArray = new JSONArray(locationName);
+
+
+            for (int i = 0; i < locationNameArray.length(); i++) {
+
+                JSONObject locationtNameArrayPart = locationNameArray.getJSONObject(i);
+
+                String name = locationtNameArrayPart.getString("name");
+
+                responseList.add(name);
+
+
+            }
+
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
         locationListener = new LocationListener() {
@@ -597,8 +688,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-
-        cityName.setText(addresss, TextView.BufferType.EDITABLE);
+//
+//        cityName.setText(addresss, TextView.BufferType.EDITABLE);
+        autoSuggestion.setText(addresss,TextView.BufferType.EDITABLE);
 
 //        getWeatherButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -607,21 +699,62 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        cityName.setOnKeyListener(new OnKeyListener() {
+//        cityName.setOnKeyListener(new OnKeyListener() {
+//            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
+//                //If the keyevent is a key-down event on the "enter" button
+//                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+//                    try {
+//
+//                        DownloadTask task = new DownloadTask();
+//                        Log.i("autosuggestion","inside");
+//
+//
+////                    String encodedCityName = URLEncoder.encode(cityName.getText().toString(), "UTF-8");
+//                        //http://openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22
+//
+//                        task.execute("https://openweathermap.org/data/2.5/weather?q=" + cityName.getText().toString() + "&appid=b6907d289e10d714a6e88b30761fae22");
+//
+//                        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                        mgr.hideSoftInputFromWindow(cityName.getWindowToken(), 0);
+//                    } catch(Exception e){
+//
+//                        Handler handler = new Handler(Looper.getMainLooper());
+//                        handler.post(new Runnable() {
+//                            public void run() {
+//                                Toast t = Toast.makeText(MainActivity.this,"Input error :",Toast.LENGTH_SHORT);
+//                                t.show();
+//                            }
+//                        });
+//                        e.printStackTrace();
+//                    }
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
+        autoSuggestion.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
                 //If the keyevent is a key-down event on the "enter" button
                 if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     try {
 
                         DownloadTask task = new DownloadTask();
+                        Log.i("autosuggestion","inside");
+                        mediaPlayerRain.reset();
+                        mediaPlayerRain2.reset();
+                        mediaPlayerRain3.reset();
+                        mediaPlayerRain4.reset();
+                        mediaPlayerRain5.reset();
+
 
 //                    String encodedCityName = URLEncoder.encode(cityName.getText().toString(), "UTF-8");
                         //http://openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22
 
-                        task.execute("https://openweathermap.org/data/2.5/weather?q=" + cityName.getText().toString() + "&appid=b6907d289e10d714a6e88b30761fae22");
+                        task.execute("https://openweathermap.org/data/2.5/weather?q=" + autoSuggestion.getText().toString() + "&appid=b6907d289e10d714a6e88b30761fae22");
 
                         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        mgr.hideSoftInputFromWindow(cityName.getWindowToken(), 0);
+                        mgr.hideSoftInputFromWindow(autoSuggestion.getWindowToken(), 0);
                     } catch(Exception e){
 
                         Handler handler = new Handler(Looper.getMainLooper());
@@ -638,6 +771,10 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+
 
 
         playbutton.setOnClickListener(new View.OnClickListener() {

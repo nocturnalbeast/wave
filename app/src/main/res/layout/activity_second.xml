@@ -3,7 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#111625">
+
+    <ImageButton
+        android:id="@+id/backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="401dp"
+        android:layout_marginRight="401dp"
+        android:layout_marginBottom="84dp"
+        android:background="@drawable/backbutton"
+        app:layout_constraintBottom_toTopOf="@+id/volumSeekBar1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <SeekBar
@@ -12,24 +29,24 @@
         android:layout_height="42dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="42dp"
+        android:layout_marginLeft="42dp"
         android:layout_marginTop="101dp"
         android:layout_marginEnd="250dp"
         android:layout_marginRight="250dp"
         android:layout_marginBottom="588dp"
         android:clickable="false"
         android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressDrawable="@drawable/seek_bar"
         android:progressTint="@color/colorPrimaryDark"
         android:rotation="270"
+        android:thumb="@drawable/seek_thumb"
         android:thumbTint="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.674"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_marginLeft="42dp"
-        android:progressDrawable="@drawable/seek_bar"
-        android:thumb="@drawable/seek_thumb"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
         android:id="@+id/volumSeekBar2"
@@ -40,17 +57,17 @@
         android:layout_marginTop="101dp"
         android:layout_marginBottom="588dp"
         android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressDrawable="@drawable/seek_bar"
         android:progressTint="@color/colorPrimaryDark"
         android:rotation="270"
+        android:thumb="@drawable/seek_thumb"
         android:thumbTint="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/volumeSeekBar4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:progressDrawable="@drawable/seek_bar"
-        android:thumb="@drawable/seek_thumb"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
         android:id="@+id/volumeSeekBar3"
@@ -61,17 +78,17 @@
         android:layout_marginTop="101dp"
         android:layout_marginBottom="588dp"
         android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressDrawable="@drawable/seek_bar"
         android:progressTint="@color/colorPrimaryDark"
         android:rotation="270"
+        android:thumb="@drawable/seek_thumb"
         android:thumbTint="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/volumeSeekBar4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:progressDrawable="@drawable/seek_bar"
-        android:thumb="@drawable/seek_thumb"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
         android:id="@+id/volumeSeekBar4"
@@ -82,16 +99,16 @@
         android:layout_marginTop="101dp"
         android:layout_marginBottom="588dp"
         android:progressBackgroundTint="@color/colorPrimaryDark"
+        android:progressDrawable="@drawable/seek_bar"
         android:progressTint="@color/colorPrimaryDark"
         android:rotation="270"
+        android:thumb="@drawable/seek_thumb"
         android:thumbTint="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:progressDrawable="@drawable/seek_bar"
-        android:thumb="@drawable/seek_thumb"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <SeekBar
         android:id="@+id/volumeSeekBar5"
@@ -179,7 +196,7 @@
         android:layout_marginLeft="52dp"
         android:layout_marginTop="52dp"
         android:fontFamily="@font/poppinsbold"
-        android:text="Popular"
+        android:text="Climate"
         android:textColor="#FFFF"
         android:textSize="12dp"
         android:textStyle="bold"
@@ -194,16 +211,15 @@
         android:id="@+id/linearLayout5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginBottom="244dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/popular"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.937">
 
 
         <Button
@@ -212,10 +228,9 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle"
-            android:text="playlist1"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist1"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList2"
@@ -223,10 +238,9 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle2"
-            android:text="playlist2"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist2"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList3"
@@ -234,20 +248,18 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle3"
-            android:text="playlist3"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist3"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList4"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/rectangle"
-            android:text="playlist4"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist4"
+            android:textSize="10dp" />
 
     </LinearLayout>
 
@@ -255,8 +267,8 @@
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -270,10 +282,9 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle"
-            android:text="playlist5"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist5"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList6"
@@ -281,10 +292,9 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle2"
-            android:text="playlist6"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist6"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList7"
@@ -292,28 +302,26 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle3"
-            android:text="playlist7"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist7"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList8"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/rectangle"
-            android:text="playlist8"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist8"
+            android:textSize="10dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -329,10 +337,9 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle"
-            android:text="playlist9"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist9"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList10"
@@ -340,10 +347,9 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle2"
-            android:text="playlist10"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist10"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList11"
@@ -351,20 +357,18 @@
             android:layout_height="60dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/rectangle3"
-            android:text="playlist11"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist11"
+            android:textSize="10dp" />
 
         <Button
             android:id="@+id/playList12"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/rectangle"
-            android:text="playlist12"
-            android:textSize="10dp"
             android:fontFamily="@font/poppinsbold"
-            />
+            android:text="playlist12"
+            android:textSize="10dp" />
 
     </LinearLayout>
 
@@ -413,6 +417,7 @@
             android:layout_height="25dp"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="12dp" />
+
         <Button
             android:id="@+id/songList"
             android:layout_width="26dp"
@@ -422,54 +427,56 @@
             android:background="@drawable/sign4" />
     </LinearLayout>
 
+
+
     <!--    <LinearLayout-->
-<!--        android:id="@+id/linearLayout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="220dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:weightSum="5"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/saveAll">-->
+    <!--        android:id="@+id/linearLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="220dp"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:weightSum="5"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/saveAll">-->
 
-<!--        <Button-->
-<!--            android:id="@+id/saveMusic1"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Save rain" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/saveMusic1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="Save rain" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/saveMusic2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="save wind" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/saveMusic2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="save wind" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/saveMusic3"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="save birds" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/saveMusic3"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="save birds" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/saveMusic4"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="save river" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/saveMusic4"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="save river" />-->
 
-<!--        <Button-->
-<!--            android:id="@+id/saveMusic5"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="save leaf" />-->
+    <!--        <Button-->
+    <!--            android:id="@+id/saveMusic5"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="save leaf" />-->
 
-<!--    </LinearLayout>-->
+    <!--    </LinearLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

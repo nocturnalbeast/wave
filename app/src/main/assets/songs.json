@@ -9,7 +9,8 @@
       "song5":"song5",
       "playlistname": "Rain",
       "image":"rain"
-    },{
+    },
+    {
       "name": "Clouds",
       "image":"clouds",
       "song1":"song1",
@@ -48,7 +49,28 @@
       "song5":"song5",
       "playlistname": "Clear",
       "image":"clear"
+    },
+    {
+      "name":"Snow",
+      "song1":"song1",
+      "song2":"song2",
+      "song3":"song3",
+      "song4":"song4",
+      "song5":"song5",
+      "playlistname": "Clear",
+      "image":"snow"
+    },
+    {
+      "name":"Drizzle",
+      "song1":"song1",
+      "song2":"song2",
+      "song3":"song3",
+      "song4":"song4",
+      "song5":"song5",
+      "playlistname": "Drizzle",
+      "image":"drizzle"
     }
+
 
 
 

@@ -39,6 +39,22 @@
       "progress3":"100",
       "progress4":"100",
       "progress5":"100"
+    },
+    {
+      "name": "Snow",
+      "progress1":"20",
+      "progress2":"20",
+      "progress3":"40",
+      "progress4":"80",
+      "progress5":"100"
+    },
+    {
+      "name": "Drizzle",
+      "progress1":"100",
+      "progress2":"50",
+      "progress3":"50",
+      "progress4":"80",
+      "progress5":"200"
     }
     
   ]

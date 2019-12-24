@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +44,7 @@ public class SecondActivity extends Activity {
     static Button playButton;
    int newprogress1,newprogress2,newprogress3,newprogress4,newprogress5;
    Button songList;
+   
 
 
     //MediaPlayer mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5;
@@ -57,6 +58,7 @@ public class SecondActivity extends Activity {
     //SharedPreferences sharedpreferencesexit;
     int getSharedPreferenceValue,getSharedPreferenceValue2,getSharedPreferenceValue3,getSharedPreferenceValue4,getSharedPreferenceValue5;
     ImageView birdImage,thunderImage,rainImage,riverImage,leafImage;
+    ImageButton backbutton;
 
     //    AudioManager audioManager1,audioManager2,audioManager3;
     int min1 = 0, max1 = 10, current1 = 5,
@@ -139,6 +141,15 @@ public class SecondActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                onBackPressed();
+            }
+        });
+
+        backbutton = findViewById(R.id.backbutton);
+
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 onBackPressed();
             }
         });
@@ -412,7 +423,7 @@ public class SecondActivity extends Activity {
 
                         progress1=progress;
                     Log.i("progress", String.valueOf(progress1));
-                    log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
+                    log1 = (float) (Math.log(100 - (progress1)) / Math.log(100));
                     volumeSeekBar1.setProgress(progress1);
                     // mediaPlayer1.start();
                         mediaPlayerRain.setVolume(1-log1,1-log1);
@@ -491,7 +502,7 @@ public class SecondActivity extends Activity {
                        progress2 = progress;
 
                        Log.i("progress2", String.valueOf(progress2));
-                       log2 = (float) (Math.log(100 - (progress2 - 1)) / Math.log(100));
+                       log2 = (float) (Math.log(100 - (progress2)) / Math.log(100));
                        volumeSeekBar2.setProgress(progress2);
                        //mediaPlayer2.start();
                        mediaPlayerRain2.setVolume(1 - log2, 1 - log2);
@@ -551,7 +562,7 @@ public class SecondActivity extends Activity {
 
         volumeSeekBar3.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar volumeSeekBar3, int progress, boolean fromUser) {
+            public void onProgressChanged(SeekBar volumeSeekBar, int progress, boolean fromUser) {
                 try {
 //                    if (saveOption3) {
 ////                   final float log1 = (float) (Math.log(50-progress)/Math.log(50));
@@ -566,7 +577,7 @@ public class SecondActivity extends Activity {
 
                         progress3=progress;
                         Log.i("progress3", String.valueOf(progress3));
-                        log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
+                        log3 = (float) (Math.log(100 - (progress3)) / Math.log(100));
                         volumeSeekBar3.setProgress(progress3);
                         // mediaPlayer3.start();
                         mediaPlayerRain3.setVolume(1-log3,1-log3);
@@ -641,7 +652,8 @@ public class SecondActivity extends Activity {
                        progress4 = progress;
 
                        Log.i("progress4", String.valueOf(progress4));
-                       log4 = (float) (Math.log(100 - (progress4 - 1)) / Math.log(100));
+                       log4 = (float) (Math.log(100 - (progress4)) / Math.log(100));
+                       volumeSeekBar4.setProgress(progress4);
 
                        // mediaPlayer4.start();
                        mediaPlayerRain4.setVolume(1 - log4, 1 - log4);
@@ -718,7 +730,7 @@ public class SecondActivity extends Activity {
 
                    progress5 = progress;
                    Log.i("progress5", String.valueOf(progress5));
-                   log5 = (float) (Math.log(100 - (progress5 - 1)) / Math.log(100));
+                   log5 = (float) (Math.log(100 - (progress5)) / Math.log(100));
                    volumeSeekBar5.setProgress(progress5);
                    // mediaPlayer5.start();
                    mediaPlayerRain5.setVolume(1 - log5, 1 - log5);
@@ -819,11 +831,11 @@ public class SecondActivity extends Activity {
             playList1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    volumeSeekBar1.setProgress(20);
-                    volumeSeekBar2.setProgress(40);
-                    volumeSeekBar3.setProgress(30);
-                    volumeSeekBar4.setProgress(40);
-                    volumeSeekBar5.setProgress(50);
+                    volumeSeekBar1.setProgress(30);
+                    volumeSeekBar2.setProgress(47);
+                    volumeSeekBar3.setProgress(65);
+                    volumeSeekBar4.setProgress(34);
+                    volumeSeekBar5.setProgress(20);
 
                 }
             });
@@ -835,11 +847,11 @@ public class SecondActivity extends Activity {
             playList2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    volumeSeekBar1.setProgress(10);
-                    volumeSeekBar2.setProgress(50);
-                    volumeSeekBar3.setProgress(40);
-                    volumeSeekBar4.setProgress(70);
-                    volumeSeekBar5.setProgress(50);
+                    volumeSeekBar1.setProgress(44);
+                    volumeSeekBar2.setProgress(28);
+                    volumeSeekBar3.setProgress(14);
+                    volumeSeekBar4.setProgress(10);
+                    volumeSeekBar5.setProgress(30);
 
                 }
             });
@@ -851,9 +863,9 @@ public class SecondActivity extends Activity {
             playList3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    volumeSeekBar1.setProgress(20);
-                    volumeSeekBar2.setProgress(40);
-                    volumeSeekBar3.setProgress(70);
+                    volumeSeekBar1.setProgress(60);
+                    volumeSeekBar2.setProgress(17);
+                    volumeSeekBar3.setProgress(1);
                     volumeSeekBar4.setProgress(30);
                     volumeSeekBar5.setProgress(20);
 

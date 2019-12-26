@@ -2,7 +2,6 @@ package com.kitebe.wave;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -27,12 +26,18 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import static com.kitebe.wave.MainActivity.allprogress1;
+import static com.kitebe.wave.MainActivity.allprogress2;
+import static com.kitebe.wave.MainActivity.allprogress3;
+import static com.kitebe.wave.MainActivity.allprogress4;
+import static com.kitebe.wave.MainActivity.allprogress5;
 import static com.kitebe.wave.MainActivity.isPlayingBoolean;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain2;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain3;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain4;
 import static com.kitebe.wave.MainActivity.mediaPlayerRain5;
+
 
 public class SecondActivity extends Activity {
 
@@ -42,17 +47,20 @@ public class SecondActivity extends Activity {
     int noteId=-1;
     TextView songName;
     static Button playButton;
+    static int imageId;
    int newprogress1,newprogress2,newprogress3,newprogress4,newprogress5;
    Button songList;
+   static ImageButton songTheme2;
    
 
 
     //MediaPlayer mediaPlayer1,mediaPlayer2,mediaPlayer3,mediaPlayer4,mediaPlayer5;
-    SeekBar volumeSeekBar1,volumeSeekBar2,volumeSeekBar3,volumeSeekBar4,volumeSeekBar5;
+    static SeekBar volumeSeekBar1,volumeSeekBar2,volumeSeekBar3,volumeSeekBar4,volumeSeekBar5;
     float log1,log2,log3,log4,log5, newvolume,newvolume2,newvolume3,newvolume4,newvolume5;
     int progress1,progress2,progress3,progress4,progress5;
     //saveMusic button
-    Button saveMusic1,saveMusic2,saveMusic3,saveMusic4,saveMusic5,playList1,playList2,playList3,playList4,playList5,playList6,playList7,playList8,playList9,playList10,playList11,playList12,saveAll;
+    Button saveMusic1,saveMusic2,saveMusic3,saveMusic4,saveMusic5,saveAll;
+   static Button playList1,playList2,playList3,playList4,playList5,playList6,playList7,playList8,playList9,playList10,playList11,playList12;
     boolean saveOption = false,saveOption2 = false,saveOption3 = false,saveOption4 = false,saveOption5 = false, sharedPreferenceValueBoolean=false;
     float currentVolume,currentVolume2,currentVolume3,currentVolume4,currentVolume5;
     //SharedPreferences sharedpreferencesexit;
@@ -113,6 +121,8 @@ public class SecondActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
+        MainActivity.intentBoolean=true;
+
 //        mediaPlayer1 = MediaPlayer.create(this, R.raw.song1);
 //
 //        mediaPlayer2 = MediaPlayer.create(this, R.raw.song2);
@@ -142,6 +152,7 @@ public class SecondActivity extends Activity {
             public void onClick(View v) {
 
                 onBackPressed();
+
             }
         });
 
@@ -210,6 +221,8 @@ public class SecondActivity extends Activity {
         rainImage = findViewById(R.id.rainImage);
         riverImage = findViewById(R.id.riverImage);
         leafImage = findViewById(R.id.leafImage);
+        songTheme2 = findViewById(R.id.songTheme);
+        songTheme2.setBackgroundResource(imageId);
 
 //        try {
 //            sharedpreferencesexit = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -320,9 +333,21 @@ public class SecondActivity extends Activity {
 //        audioManager2 = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 //        audioManager3 = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
+        volumeSeekBar1.setProgress(allprogress1);
+        volumeSeekBar2.setProgress(allprogress2);
+        volumeSeekBar3.setProgress(allprogress3);
+        volumeSeekBar4.setProgress(allprogress4);
+        volumeSeekBar5.setProgress(allprogress5);
+        if(mediaPlayerRain.isPlaying()){
+            playButton.setBackgroundResource(R.drawable.pausebutton);
+        }else {
+            playButton.setBackgroundResource(R.drawable.playbutton);
+
+        }
+        songName.setText(MainActivity.plname);
 
 
-        {
+        /*{
             try {
                 String stringPL = loadJSONFromAsset("progress.json");
                 Context context = getApplicationContext();
@@ -345,7 +370,7 @@ public class SecondActivity extends Activity {
                     try {
                         if(MainActivity.plname.equals(name)  ){
 
-                            songName.setText(MainActivity.plname);
+
 
                             newprogress1 =playlistNameArrayPart.getInt("progress1");
                             newprogress2 =playlistNameArrayPart.getInt("progress2");
@@ -354,19 +379,8 @@ public class SecondActivity extends Activity {
                             newprogress5 =playlistNameArrayPart.getInt("progress5");
                             Log.i("progressjsonnew",String.valueOf(progress1));
 
-                            if(mediaPlayerRain.isPlaying()){
-                                playButton.setBackgroundResource(R.drawable.pausebutton);
-                            }else {
-                                playButton.setBackgroundResource(R.drawable.playbutton);
-
-                            }
 
 
-                            volumeSeekBar1.setProgress(newprogress1);
-                            volumeSeekBar2.setProgress(newprogress2);
-                            volumeSeekBar3.setProgress(newprogress3);
-                            volumeSeekBar4.setProgress(newprogress4);
-                            volumeSeekBar5.setProgress(newprogress5);
 
 //                        float log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
 //                        float log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
@@ -397,7 +411,7 @@ public class SecondActivity extends Activity {
                 e.printStackTrace();
             }
         }
-
+*/
 
 
 
@@ -831,11 +845,29 @@ public class SecondActivity extends Activity {
             playList1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=30;
+                    allprogress2=47;
+                    allprogress3=65;
+                    allprogress4=34;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(30);
                     volumeSeekBar2.setProgress(47);
                     volumeSeekBar3.setProgress(65);
                     volumeSeekBar4.setProgress(34);
                     volumeSeekBar5.setProgress(20);
+                    imageId=R.drawable.rectangle;
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
 
                 }
             });
@@ -847,11 +879,33 @@ public class SecondActivity extends Activity {
             playList2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    volumeSeekBar1.setProgress(44);
-                    volumeSeekBar2.setProgress(28);
-                    volumeSeekBar3.setProgress(14);
-                    volumeSeekBar4.setProgress(10);
-                    volumeSeekBar5.setProgress(30);
+                    allprogress1=2;
+                    allprogress2=8;
+                    allprogress3=2;
+                    allprogress4=90;
+                    allprogress5=2;
+
+                    volumeSeekBar1.setProgress(2);
+                    volumeSeekBar2.setProgress(8);
+                    volumeSeekBar3.setProgress(2);
+                    volumeSeekBar4.setProgress(90);
+                    volumeSeekBar5.setProgress(2);
+
+                    imageId=R.drawable.rectangle2;
+
+                    songTheme2.setBackgroundResource(R.drawable.rectangle2);
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -863,11 +917,32 @@ public class SecondActivity extends Activity {
             playList3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=60;
+                    allprogress2=17;
+                    allprogress3=1;
+                    allprogress4=30;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(60);
                     volumeSeekBar2.setProgress(17);
                     volumeSeekBar3.setProgress(1);
                     volumeSeekBar4.setProgress(30);
                     volumeSeekBar5.setProgress(20);
+
+                    imageId=R.drawable.rectangle3;
+
+                    songTheme2.setBackgroundResource(R.drawable.rectangle3);
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -878,11 +953,32 @@ public class SecondActivity extends Activity {
             playList4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=70;
+                    allprogress2=20;
+                    allprogress3=70;
+                    allprogress4=50;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(70);
                     volumeSeekBar2.setProgress(20);
                     volumeSeekBar3.setProgress(70);
                     volumeSeekBar4.setProgress(50);
                     volumeSeekBar5.setProgress(20);
+
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+
+                    imageId=R.drawable.rectangle;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -893,11 +989,31 @@ public class SecondActivity extends Activity {
             playList5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=20;
+                    allprogress2=70;
+                    allprogress3=40;
+                    allprogress4=40;
+                    allprogress5=50;
                     volumeSeekBar1.setProgress(20);
                     volumeSeekBar2.setProgress(70);
                     volumeSeekBar3.setProgress(40);
                     volumeSeekBar4.setProgress(40);
                     volumeSeekBar5.setProgress(50);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+
+                    imageId=R.drawable.rectangle;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -909,11 +1025,31 @@ public class SecondActivity extends Activity {
             playList6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=10;
+                    allprogress2=20;
+                    allprogress3=40;
+                    allprogress4=10;
+                    allprogress5=50;
                     volumeSeekBar1.setProgress(10);
                     volumeSeekBar2.setProgress(20);
                     volumeSeekBar3.setProgress(40);
                     volumeSeekBar4.setProgress(10);
                     volumeSeekBar5.setProgress(50);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle2);
+
+                    imageId=R.drawable.rectangle2;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -925,11 +1061,31 @@ public class SecondActivity extends Activity {
             playList7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=20;
+                    allprogress2=40;
+                    allprogress3=40;
+                    allprogress4=30;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(20);
                     volumeSeekBar2.setProgress(40);
                     volumeSeekBar3.setProgress(40);
                     volumeSeekBar4.setProgress(30);
                     volumeSeekBar5.setProgress(20);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle3);
+
+                    imageId=R.drawable.rectangle3;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -940,11 +1096,31 @@ public class SecondActivity extends Activity {
             playList8.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=70;
+                    allprogress2=40;
+                    allprogress3=70;
+                    allprogress4=30;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(70);
                     volumeSeekBar2.setProgress(40);
                     volumeSeekBar3.setProgress(70);
                     volumeSeekBar4.setProgress(30);
                     volumeSeekBar5.setProgress(20);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+
+                    imageId=R.drawable.rectangle;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -955,11 +1131,31 @@ public class SecondActivity extends Activity {
             playList9.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=100;
+                    allprogress2=10;
+                    allprogress3=10;
+                    allprogress4=20;
+                    allprogress5=30;
                     volumeSeekBar1.setProgress(100);
                     volumeSeekBar2.setProgress(10);
                     volumeSeekBar3.setProgress(10);
                     volumeSeekBar4.setProgress(20);
                     volumeSeekBar5.setProgress(30);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle2);
+
+                    imageId=R.drawable.rectangle2;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -971,11 +1167,31 @@ public class SecondActivity extends Activity {
             playList10.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=40;
+                    allprogress2=50;
+                    allprogress3=100;
+                    allprogress4=10;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(40);
                     volumeSeekBar2.setProgress(50);
                     volumeSeekBar3.setProgress(100);
                     volumeSeekBar4.setProgress(10);
                     volumeSeekBar5.setProgress(20);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle3);
+
+                    imageId=R.drawable.rectangle3;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -987,11 +1203,31 @@ public class SecondActivity extends Activity {
             playList11.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=50;
+                    allprogress2=80;
+                    allprogress3=70;
+                    allprogress4=40;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(50);
                     volumeSeekBar2.setProgress(80);
                     volumeSeekBar3.setProgress(70);
                     volumeSeekBar4.setProgress(40);
                     volumeSeekBar5.setProgress(20);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+
+                    imageId=R.drawable.rectangle;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
+
 
                 }
             });
@@ -1002,11 +1238,30 @@ public class SecondActivity extends Activity {
             playList12.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    allprogress1=80;
+                    allprogress2=40;
+                    allprogress3=80;
+                    allprogress4=50;
+                    allprogress5=20;
                     volumeSeekBar1.setProgress(80);
                     volumeSeekBar2.setProgress(40);
                     volumeSeekBar3.setProgress(80);
                     volumeSeekBar4.setProgress(50);
                     volumeSeekBar5.setProgress(20);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+
+                    imageId=R.drawable.rectangle;
+                    try {
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(mediaPlayerRain.isPlaying()){
+                        playButton.setBackgroundResource(R.drawable.pausebutton);
+                    }else {
+                        playButton.setBackgroundResource(R.drawable.playbutton);
+
+                    }
 
                 }
             });

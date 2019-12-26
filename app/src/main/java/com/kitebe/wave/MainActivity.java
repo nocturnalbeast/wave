@@ -11,9 +11,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -30,14 +28,11 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,11 +64,14 @@ public class MainActivity extends AppCompatActivity {
     static String weatherName;
     Button getWeatherButton,equilizer;
     String song1,song2,song3,song4,song5;
+    static ImageButton songTheme1;
+     static Boolean intentBoolean=false;
 
     static String coordTempInformation;
     //song controller
     static Button playbutton;
    static boolean isPlayingBoolean = false;
+   static int  allprogress1,allprogress2,allprogress3,allprogress4,allprogress5;
 
     boolean loop;
     //current location
@@ -333,18 +331,18 @@ public class MainActivity extends AppCompatActivity {
 
 
                         songName.setText(plname);
-                        int  progress1 =playlistNameArrayPart.getInt("progress1");
-                        int  progress2 =playlistNameArrayPart.getInt("progress2");
-                        int  progress3 =playlistNameArrayPart.getInt("progress3");
-                        int  progress4 =playlistNameArrayPart.getInt("progress4");
-                        int  progress5 =playlistNameArrayPart.getInt("progress5");
+                          allprogress1 =playlistNameArrayPart.getInt("progress1");
+                          allprogress2 =playlistNameArrayPart.getInt("progress2");
+                          allprogress3 =playlistNameArrayPart.getInt("progress3");
+                          allprogress4 =playlistNameArrayPart.getInt("progress4");
+                          allprogress5 =playlistNameArrayPart.getInt("progress5");
                         Log.i("progressjson","info");
 
-                        float log1 = (float) (Math.log(100 - (progress1-1)) / Math.log(100));
-                        float log2 = (float) (Math.log(100 - (progress2-1)) / Math.log(100));
-                        float log3 = (float) (Math.log(100 - (progress3-1)) / Math.log(100));
-                        float log4 = (float) (Math.log(100 - (progress4-1)) / Math.log(100));
-                        float log5 = (float) (Math.log(100 - (progress5-1)) / Math.log(100));
+                        float log1 = (float) (Math.log(100 - (allprogress1-1)) / Math.log(100));
+                        float log2 = (float) (Math.log(100 - (allprogress2-1)) / Math.log(100));
+                        float log3 = (float) (Math.log(100 - (allprogress3-1)) / Math.log(100));
+                        float log4 = (float) (Math.log(100 - (allprogress4-1)) / Math.log(100));
+                        float log5 = (float) (Math.log(100 - (allprogress5-1)) / Math.log(100));
 
                         playbutton.setBackgroundResource(R.drawable.pausebutton);
 
@@ -358,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
                         final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
                         final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
 
-                        Toast.makeText(getApplicationContext(),progress1+"hello",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),allprogress1+"hello",Toast.LENGTH_SHORT).show();
 
 
                         mediaPlayerRain = MediaPlayer.create(getApplicationContext(),resourceSongId1);
@@ -548,13 +546,17 @@ public class MainActivity extends AppCompatActivity {
 
         songList = findViewById(R.id.songList);
         songName = findViewById(R.id.songName);
+        songTheme1 = findViewById(R.id.songTheme);
+        final Intent getSongList = new Intent(getApplicationContext(), SecondActivity.class);
+
 
         songList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent getSongList = new Intent(getApplicationContext(), SecondActivity.class);
 
-                startActivity(getSongList);
+
+                    startActivity(getSongList);
+
             }
         });
 
@@ -773,6 +775,61 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
+        try {
+            SecondActivity.playList1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    try {
+                        SecondActivity.songTheme2.setBackgroundResource(R.drawable.rectangle);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            SecondActivity.playList2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    SecondActivity.volumeSeekBar1.setProgress(2);
+//                    SecondActivity.volumeSeekBar2.setProgress(8);
+//                    SecondActivity.volumeSeekBar3.setProgress(2);
+//                    SecondActivity.volumeSeekBar4.setProgress(90);
+//                    SecondActivity.volumeSeekBar5.setProgress(2);
+                    try {
+                        SecondActivity.songTheme2.setBackgroundResource(R.drawable.rectangle2);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            SecondActivity.playList3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    try {
+                        SecondActivity.songTheme2.setBackgroundResource(R.drawable.rectangle3);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
 

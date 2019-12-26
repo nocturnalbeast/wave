@@ -177,8 +177,8 @@ android:background="@drawable/group559"
         app:layout_constraintStart_toStartOf="parent">
 
 
-        <TextView
-            android:id="@+id/textView5"
+        <ImageButton
+            android:id="@+id/songTheme"
             android:layout_width="50dp"
             android:layout_height="42dp"
             android:background="@drawable/rectangle"

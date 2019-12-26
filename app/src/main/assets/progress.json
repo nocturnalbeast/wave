@@ -18,11 +18,11 @@
       "progress5":"50"
     },{
       "name": "Clouds",
-      "progress1":"10",
-      "progress2":"20",
-      "progress3":"20",
-      "progress4":"50",
-      "progress5":"90"
+      "progress1":"100",
+      "progress2":"2",
+      "progress3":"2",
+      "progress4":"5",
+      "progress5":"9"
     },
     {
       "name": "Thunderstorm",
@@ -50,6 +50,14 @@
     },
     {
       "name": "Drizzle",
+      "progress1":"100",
+      "progress2":"50",
+      "progress3":"50",
+      "progress4":"80",
+      "progress5":"200"
+    },
+    {
+      "name": "PlayList1",
       "progress1":"100",
       "progress2":"50",
       "progress3":"50",

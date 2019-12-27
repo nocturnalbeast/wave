@@ -133,11 +133,11 @@ public class SecondActivity extends Activity {
 //        mediaPlayer5 = MediaPlayer.create(this, R.raw.song5);
 
 
-        volumeSeekBar1 = findViewById(R.id.volumSeekBar1);
+        volumeSeekBar1 = findViewById(R.id.volumeSeekBar1);
 //        mediaPlayer1.setVolume(3,3);
 //        volumeSeekBar1.setProgress(5);
 
-        volumeSeekBar2 = findViewById(R.id.volumSeekBar2);
+        volumeSeekBar2 = findViewById(R.id.volumeSeekBar2);
 //       volumeSeekBar2.setProgress(max2 - min2);
 //       volumeSeekBar2.setProgress(current2 - min2);
 
@@ -338,11 +338,16 @@ public class SecondActivity extends Activity {
         volumeSeekBar3.setProgress(allprogress3);
         volumeSeekBar4.setProgress(allprogress4);
         volumeSeekBar5.setProgress(allprogress5);
-        if(mediaPlayerRain.isPlaying()){
-            playButton.setBackgroundResource(R.drawable.pausebutton);
-        }else {
-            playButton.setBackgroundResource(R.drawable.playbutton);
 
+        try {
+            if(mediaPlayerRain.isPlaying()){
+                playButton.setBackgroundResource(R.drawable.pausebutton);
+            }else {
+                playButton.setBackgroundResource(R.drawable.playbutton);
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         songName.setText(MainActivity.plname);
 
@@ -859,14 +864,15 @@ public class SecondActivity extends Activity {
                     songTheme2.setBackgroundResource(R.drawable.rectangle);
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
                 }
@@ -896,14 +902,15 @@ public class SecondActivity extends Activity {
                     songTheme2.setBackgroundResource(R.drawable.rectangle2);
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -933,14 +940,15 @@ public class SecondActivity extends Activity {
                     songTheme2.setBackgroundResource(R.drawable.rectangle3);
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -969,14 +977,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1004,14 +1013,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1040,14 +1050,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle2;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1076,14 +1087,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle3;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1111,14 +1123,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1146,14 +1159,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle2;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1182,14 +1196,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle3;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1218,14 +1233,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
 
@@ -1253,14 +1269,15 @@ public class SecondActivity extends Activity {
                     imageId=R.drawable.rectangle;
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
+
                     if(mediaPlayerRain.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
 
+                    }
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
 
                 }

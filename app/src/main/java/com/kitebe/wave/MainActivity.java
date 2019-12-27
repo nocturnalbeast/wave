@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
                             public void run() {
-                                Toast t = Toast.makeText(MainActivity.this,"Input error :",Toast.LENGTH_SHORT);
+                                Toast t = Toast.makeText(MainActivity.this,"searching for gps :",Toast.LENGTH_SHORT);
                                 t.show();
                             }
                         });
@@ -547,15 +547,13 @@ public class MainActivity extends AppCompatActivity {
         songList = findViewById(R.id.songList);
         songName = findViewById(R.id.songName);
         songTheme1 = findViewById(R.id.songTheme);
-        final Intent getSongList = new Intent(getApplicationContext(), SecondActivity.class);
 
 
         songList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                    startActivity(getSongList);
+                Intent getSongList = new Intent(getApplicationContext(), SecondActivity.class);
+                startActivity(getSongList);
 
             }
         });
@@ -723,7 +721,7 @@ public class MainActivity extends AppCompatActivity {
 //                        Handler handler = new Handler(Looper.getMainLooper());
 //                        handler.post(new Runnable() {
 //                            public void run() {
-//                                Toast t = Toast.makeText(MainActivity.this,"Input error :",Toast.LENGTH_SHORT);
+//                                Toast t = Toast.makeText(MainActivity.this,"searching for gps :",Toast.LENGTH_SHORT);
 //                                t.show();
 //                            }
 //                        });
@@ -762,7 +760,7 @@ public class MainActivity extends AppCompatActivity {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
                             public void run() {
-                                Toast t = Toast.makeText(MainActivity.this,"Input error :",Toast.LENGTH_SHORT);
+                                Toast t = Toast.makeText(MainActivity.this,"searching for gps :",Toast.LENGTH_SHORT);
                                 t.show();
                             }
                         });

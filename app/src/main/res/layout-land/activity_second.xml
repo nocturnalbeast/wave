@@ -25,89 +25,131 @@
 
     <LinearLayout
         android:id="@+id/linearLayout8"
-        android:layout_width="wrap_content"
-        android:layout_height="90dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="300dp"
+        android:layout_height="228dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@id/backbutton"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout4"
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <SeekBar
-            android:id="@+id/volumeSeekBar1"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="30dp"
-            android:progressBackgroundTint="@color/colorPrimaryDark"
-            android:progressDrawable="@drawable/seek_bar"
-            android:progressTint="@color/colorPrimaryDark"
-            android:rotation="270"
-            android:thumb="@drawable/seek_thumb"
-            android:thumbTint="#FFF" />
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="0dp">
 
-        <SeekBar
-            android:id="@+id/volumeSeekBar2"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="30dp"
-            android:progressBackgroundTint="@color/colorPrimaryDark"
-            android:progressDrawable="@drawable/seek_bar"
-            android:progressTint="@color/colorPrimaryDark"
-            android:rotation="270"
-            android:thumb="@drawable/seek_thumb"
-            android:thumbTint="#FFF" />
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/volumeSeekBar1"
+                android:layout_width="42dp"
+                android:layout_height="228dp"
+                android:progressBackgroundTint="@color/colorPrimaryDark"
+                android:progressDrawable="@drawable/seek_bar"
+                android:progressTint="@color/colorPrimaryDark"
+                android:splitTrack="false"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbTint="#FFF"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
-        <SeekBar
-            android:id="@+id/volumeSeekBar3"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="30dp"
-            android:progressBackgroundTint="@color/colorPrimaryDark"
-            android:progressDrawable="@drawable/seek_bar"
-            android:progressTint="@color/colorPrimaryDark"
-            android:rotation="270"
-            android:thumb="@drawable/seek_thumb"
-            android:thumbTint="#FFF" />
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="42dp"
+            android:layout_height="228dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="0dp">
 
-        <SeekBar
-            android:id="@+id/volumeSeekBar4"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="30dp"
-            android:progressBackgroundTint="@color/colorPrimaryDark"
-            android:progressDrawable="@drawable/seek_bar"
-            android:progressTint="@color/colorPrimaryDark"
-            android:rotation="270"
-            android:thumb="@drawable/seek_thumb"
-            android:thumbTint="#FFF" />
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/volumeSeekBar2"
+                android:layout_width="42dp"
+                android:layout_height="228dp"
+                android:progressBackgroundTint="@color/colorPrimaryDark"
+                android:progressDrawable="@drawable/seek_bar"
+                android:progressTint="@color/colorPrimaryDark"
+                android:splitTrack="false"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbTint="#FFF"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
-        <SeekBar
-            android:id="@+id/volumeSeekBar5"
-            android:layout_width="100dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="30dp"
-            android:progressBackgroundTint="@color/colorPrimaryDark"
-            android:progressDrawable="@drawable/seek_bar"
-            android:progressTint="@color/colorPrimaryDark"
-            android:rotation="270"
-            android:thumb="@drawable/seek_thumb"
-            android:thumbTint="#FFF" />
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="42dp"
+            android:layout_height="228dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/volumeSeekBar3"
+                android:layout_width="42dp"
+                android:layout_height="228dp"
+                android:progressBackgroundTint="@color/colorPrimaryDark"
+                android:progressDrawable="@drawable/seek_bar"
+                android:progressTint="@color/colorPrimaryDark"
+                android:splitTrack="false"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbTint="#FFF"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="42dp"
+            android:layout_height="228dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/volumeSeekBar4"
+                android:layout_width="42dp"
+                android:layout_height="228dp"
+                android:progressBackgroundTint="@color/colorPrimaryDark"
+                android:progressDrawable="@drawable/seek_bar"
+                android:progressTint="@color/colorPrimaryDark"
+                android:splitTrack="false"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbTint="#FFF"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
+        <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper
+            android:layout_width="42dp"
+            android:layout_height="228dp"
+            android:layout_weight="1"
+            tools:layout_editor_absoluteX="57dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
+                android:id="@+id/volumeSeekBar5"
+                android:layout_width="42dp"
+                android:layout_height="228dp"
+                android:progressBackgroundTint="@color/colorPrimaryDark"
+                android:progressDrawable="@drawable/seek_bar"
+                android:progressTint="@color/colorPrimaryDark"
+                android:splitTrack="false"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbTint="#FFF"
+                app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
+        </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
+
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="487dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="23dp"
+        android:layout_width="298dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="61dp"
         android:weightSum="5"
-        app:layout_constraintBottom_toTopOf="@+id/popular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout8">
 
         <ImageView
             android:id="@+id/birdImage"
@@ -123,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:paddingLeft="19dp"
+
             android:src="@drawable/path74" />
 
         <ImageView
@@ -132,7 +174,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_weight="1"
-            android:paddingLeft="15dp"
             android:src="@drawable/group613" />
 
         <ImageView
@@ -154,39 +195,34 @@
 
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/popular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginRight="52dp"
-        android:layout_marginBottom="167dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/poppinsbold"
         android:text="Climate"
         android:textColor="#FFFF"
         android:textSize="12dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.434" />
+        app:layout_constraintBottom_toTopOf="@id/linearLayout5"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintLeft_toRightOf="@id/linearLayout8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="72dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@id/linearLayout8"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout6">
 
 
         <Button
@@ -227,12 +263,12 @@
         android:id="@+id/linearLayout6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout7"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@id/linearLayout8"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout5"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout7">
 
 
         <Button
@@ -272,14 +308,14 @@
     <LinearLayout
         android:id="@+id/linearLayout7"
         android:layout_width="wrap_content"
-
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="123dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toEndOf="@id/linearLayout8"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout6">
 
 
         <Button
@@ -318,8 +354,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="809dp"
-        android:layout_height="45dp"
+        android:layout_width="728dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="4dp"
         android:background="#C40E0E0E"
         android:orientation="horizontal"
         android:paddingLeft="50dp"
@@ -328,7 +365,7 @@
         android:paddingBottom="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="1.0
@@ -358,20 +395,18 @@
             android:layout_width="23dp"
             android:layout_height="25dp"
             android:layout_marginLeft="180dp"
-            android:layout_marginTop="3dp"/>
+            android:layout_marginTop="3dp" />
 
         <Button
             android:id="@+id/songList"
             android:layout_width="26dp"
             android:layout_height="27dp"
-            android:layout_marginLeft="195dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/sign4" />
 
 
     </LinearLayout>
-
-
 
 
     <!--    <LinearLayout-->

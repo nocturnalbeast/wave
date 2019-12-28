@@ -349,6 +349,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
                         // get resource id by song song
                         final int resourceSongId1 = resources.getIdentifier(song1, "raw", context.getPackageName());
                         final int resourceSongId2 = resources.getIdentifier(song2, "raw", context.getPackageName());
@@ -547,6 +548,14 @@ public class MainActivity extends AppCompatActivity {
         songList = findViewById(R.id.songList);
         songName = findViewById(R.id.songName);
         songTheme1 = findViewById(R.id.songTheme);
+        try {
+            SecondActivity.imageId=R.drawable.rectangle;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
 
 
         songList.setOnClickListener(new View.OnClickListener() {
@@ -591,6 +600,7 @@ public class MainActivity extends AppCompatActivity {
         humidty = findViewById(R.id.humidity);
         wind = findViewById(R.id.wind);
         clouds = findViewById(R.id.clouds);
+
 
 
 
@@ -835,7 +845,7 @@ public class MainActivity extends AppCompatActivity {
         playbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try {
-                    if (mediaPlayerRain.isPlaying()) {
+                    if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         mediaPlayerRain.pause();
                         mediaPlayerRain2.pause();
                         mediaPlayerRain3.pause();

@@ -223,6 +223,8 @@ public class SecondActivity extends Activity {
         leafImage = findViewById(R.id.leafImage);
         songTheme2 = findViewById(R.id.songTheme);
         songTheme2.setBackgroundResource(imageId);
+       // songTheme2.setBackgroundResource(R.drawable.rectangle);
+
 
 //        try {
 //            sharedpreferencesexit = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
@@ -340,10 +342,11 @@ public class SecondActivity extends Activity {
         volumeSeekBar5.setProgress(allprogress5);
 
         try {
-            if(mediaPlayerRain.isPlaying()){
-                playButton.setBackgroundResource(R.drawable.pausebutton);
-            }else {
-                playButton.setBackgroundResource(R.drawable.playbutton);
+            if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
+                SecondActivity.playButton.setBackgroundResource(R.drawable.pausebutton);
+            }
+            else {
+                SecondActivity.playButton.setBackgroundResource(R.drawable.playbutton);
 
             }
         }catch (Exception e){
@@ -865,7 +868,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -903,7 +906,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -941,7 +944,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -978,7 +981,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1014,7 +1017,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1051,7 +1054,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1088,7 +1091,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1124,7 +1127,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1154,13 +1157,13 @@ public class SecondActivity extends Activity {
                     volumeSeekBar3.setProgress(10);
                     volumeSeekBar4.setProgress(20);
                     volumeSeekBar5.setProgress(30);
-                    songTheme2.setBackgroundResource(R.drawable.rectangle2);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle);
 
-                    imageId=R.drawable.rectangle2;
+                    imageId=R.drawable.rectangle;
                     try {
-                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1191,13 +1194,13 @@ public class SecondActivity extends Activity {
                     volumeSeekBar3.setProgress(100);
                     volumeSeekBar4.setProgress(10);
                     volumeSeekBar5.setProgress(20);
-                    songTheme2.setBackgroundResource(R.drawable.rectangle3);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle2);
 
-                    imageId=R.drawable.rectangle3;
+                    imageId=R.drawable.rectangle2;
                     try {
-                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle2);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1228,13 +1231,13 @@ public class SecondActivity extends Activity {
                     volumeSeekBar3.setProgress(70);
                     volumeSeekBar4.setProgress(40);
                     volumeSeekBar5.setProgress(20);
-                    songTheme2.setBackgroundResource(R.drawable.rectangle);
+                    songTheme2.setBackgroundResource(R.drawable.rectangle3);
 
-                    imageId=R.drawable.rectangle;
+                    imageId=R.drawable.rectangle3;
                     try {
-                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
+                        MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle3);
 
-                    if(mediaPlayerRain.isPlaying()){
+                        if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1270,7 +1273,7 @@ public class SecondActivity extends Activity {
                     try {
                         MainActivity.songTheme1.setBackgroundResource(R.drawable.rectangle);
 
-                    if(mediaPlayerRain.isPlaying()){
+                    if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         playButton.setBackgroundResource(R.drawable.pausebutton);
                     }else {
                         playButton.setBackgroundResource(R.drawable.playbutton);
@@ -1289,7 +1292,7 @@ public class SecondActivity extends Activity {
         playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try {
-                    if (mediaPlayerRain.isPlaying()) {
+                    if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
                         mediaPlayerRain.pause();
                         mediaPlayerRain2.pause();
                         mediaPlayerRain3.pause();

@@ -156,7 +156,7 @@ android:background="@drawable/group559"
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="809dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="#C40E0E0E"
         android:orientation="horizontal"
@@ -202,7 +202,7 @@ android:background="@drawable/group559"
             android:id="@+id/songList"
             android:layout_width="37dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="195dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginRight="10dp"
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/sign4" />

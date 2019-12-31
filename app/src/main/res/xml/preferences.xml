@@ -1,0 +1,45 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/sound_profiles"
+        android:entryValues="@array/sp"
+        android:key="sound_profile_list_pref"
+        android:title="Selected sound profile" />
+
+    <PreferenceCategory android:title="Levels">
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:key="sl_one"
+            android:max="100"
+            android:title="Chirp - volume" />
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:key="sl_two"
+            android:max="100"
+            android:title="Wind - volume" />
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:key="sl_three"
+            android:max="100"
+            android:title="Rain - volume" />
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:key="sl_four"
+            android:max="100"
+            android:title="River - volume" />
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:key="sl_five"
+            android:max="100"
+            android:title="Environment - volume" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

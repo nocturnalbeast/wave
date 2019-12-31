@@ -48,30 +48,31 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import android.view.View.OnKeyListener;
 
 public class MainActivity extends AppCompatActivity {
-//    EditText cityName;
+    //    EditText cityName;
     AutoCompleteTextView autoSuggestion;
-    TextView weatherTextView,temp,humidty,wind,clouds;
+    TextView weatherTextView, temp, humidty, wind, clouds;
     TextView songName;
     TextView coordTextView;
     AudioManager audioManager;
-    static MediaPlayer mediaPlayerRain,mediaPlayerRain2,mediaPlayerRain3,mediaPlayerRain4,mediaPlayerRain5;
-    ConstraintLayout backgroungImage ;
+    static MediaPlayer mediaPlayerRain, mediaPlayerRain2, mediaPlayerRain3, mediaPlayerRain4, mediaPlayerRain5;
+    ConstraintLayout backgroungImage;
     String jsonMain;
     static String plname;
     static String weatherName;
-    Button getWeatherButton,equilizer;
-    String song1,song2,song3,song4,song5;
+    Button getWeatherButton, equilizer;
+    String song1, song2, song3, song4, song5;
     static ImageButton songTheme1;
-     static Boolean intentBoolean=false;
+    static Boolean intentBoolean = false;
 
     static String coordTempInformation;
     //song controller
     static Button playbutton;
-   static boolean isPlayingBoolean = false;
-   static int  allprogress1,allprogress2,allprogress3,allprogress4,allprogress5;
+    static boolean isPlayingBoolean = false;
+    static int allprogress1, allprogress2, allprogress3, allprogress4, allprogress5;
 
     boolean loop;
     //current location
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     LocationListener locationListener;
     String addresss;
     ImageButton songList;
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -114,18 +116,17 @@ public class MainActivity extends AppCompatActivity {
 
             List<Address> listAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-            if (listAddresses != null && listAddresses.size() > 0 ) {
+            if (listAddresses != null && listAddresses.size() > 0) {
 
                 Log.i("PlaceInfo", listAddresses.get(0).toString());
 
                 addresss = "Address: \n";
 
 
-
                 if (listAddresses.get(0).getSubLocality() != null) {
 
                     addresss = listAddresses.get(0).getSubLocality() + "\n";
-                    Log.i("current location:",addresss);
+                    Log.i("current location:", addresss);
                     try {
 //                        mediaPlayerRain.reset();
 //                        mediaPlayerRain2.reset();
@@ -136,16 +137,16 @@ public class MainActivity extends AppCompatActivity {
 
 //                        String encodedCityName = URLEncoder.encode(addresss.toString(), "UTF-8");
 
-                        task.execute("https://openweathermap.org/data/2.5/weather?q="+ addresss +"&appid=b6907d289e10d714a6e88b30761fae22");
+                        task.execute("https://openweathermap.org/data/2.5/weather?q=" + addresss + "&appid=b6907d289e10d714a6e88b30761fae22");
 
 //                        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //                        mgr.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                    } catch(Exception e){
+                    } catch (Exception e) {
 
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
                             public void run() {
-                                Toast t = Toast.makeText(MainActivity.this,"searching for gps :",Toast.LENGTH_SHORT);
+                                Toast t = Toast.makeText(MainActivity.this, "searching for gps :", Toast.LENGTH_SHORT);
                                 t.show();
                             }
                         });
@@ -157,24 +158,21 @@ public class MainActivity extends AppCompatActivity {
 
             //TextView addressTextView = (TextView) findViewById(R.id.address);
 
-           // addressTextView.setText(addresss);
+            // addressTextView.setText(addresss);
 
-           // currentLocation.setText(addresss, TextView.BufferType.EDITABLE);
-            Log.i("current location:",addresss);
-
-
+            // currentLocation.setText(addresss, TextView.BufferType.EDITABLE);
+            Log.i("current location:", addresss);
 
 
         } catch (IOException e) {
 
             e.printStackTrace();
 
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
     }
-
 
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
@@ -190,12 +188,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 url = new URL(urls[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in= urlConnection.getInputStream();
+                InputStream in = urlConnection.getInputStream();
                 InputStreamReader reader = new InputStreamReader(in);
-                int data =reader.read();
+                int data = reader.read();
 
 
-                while ( data !=-1){
+                while (data != -1) {
 
                     char current = (char) data;
                     result += current;
@@ -230,26 +228,26 @@ public class MainActivity extends AppCompatActivity {
 
                 //weatherInformation
 
-                for (int i=0; i <weatherInfoArray.length(); i++){
+                for (int i = 0; i < weatherInfoArray.length(); i++) {
 
                     JSONObject jsonWeatherPart = weatherInfoArray.getJSONObject(i);
 
                     jsonMain = jsonWeatherPart.getString("main");
 
-                    String description =jsonWeatherPart.getString("description");
+                    String description = jsonWeatherPart.getString("description");
 
-                    if (!jsonMain.equals("") && !description.equals("")){
+                    if (!jsonMain.equals("") && !description.equals("")) {
 
-                        weatherInformation += jsonMain + ":" + description +"\r\n";
+                        weatherInformation += jsonMain + ":" + description + "\r\n";
                     }
 
 //                    if(main.equals("Haze")){
 //                   }
                 }
-                if(!weatherInformation.equals("")) {
-              //    weatherTextView.setText(weatherInformation);
-                }else {
-                    Toast.makeText(getApplicationContext(),"could not find weather Information :",Toast.LENGTH_LONG).show();
+                if (!weatherInformation.equals("")) {
+                    //    weatherTextView.setText(weatherInformation);
+                } else {
+                    Toast.makeText(getApplicationContext(), "could not find weather Information :", Toast.LENGTH_LONG).show();
                 }
 
                 String string = loadJSONFromAsset("songs.json");
@@ -266,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("weather content", weatherBackgroundInfo);
 
                 //progress equalizer json
-                String playlistName=progressJson.getString("playlistjsonfile");
+                String playlistName = progressJson.getString("playlistjsonfile");
                 Log.i("progress content", playlistName);
 
                 JSONArray weatherBackgroundContentArray = new JSONArray(weatherBackgroundInfo);
@@ -278,23 +276,23 @@ public class MainActivity extends AppCompatActivity {
 
                 //weatherInformation
 
-                for (int i=0; i <weatherBackgroundContentArray.length(); i++){
+                for (int i = 0; i < weatherBackgroundContentArray.length(); i++) {
 
                     JSONObject jsonWeatherBackgroundContentPart = weatherBackgroundContentArray.getJSONObject(i);
 
-                     weatherName = jsonWeatherBackgroundContentPart.getString("name");
+                    weatherName = jsonWeatherBackgroundContentPart.getString("name");
 
-                    if(jsonMain.equals(weatherName)  ){
+                    if (jsonMain.equals(weatherName)) {
 
-                          song1 =jsonWeatherBackgroundContentPart.getString("song1");
-                          song2 =jsonWeatherBackgroundContentPart.getString("song2");
-                          song3 =jsonWeatherBackgroundContentPart.getString("song3");
-                          song4 =jsonWeatherBackgroundContentPart.getString("song4");
-                          song5 =jsonWeatherBackgroundContentPart.getString("song5");
-                          plname =jsonWeatherBackgroundContentPart.getString("playlistname");
+                        song1 = jsonWeatherBackgroundContentPart.getString("song1");
+                        song2 = jsonWeatherBackgroundContentPart.getString("song2");
+                        song3 = jsonWeatherBackgroundContentPart.getString("song3");
+                        song4 = jsonWeatherBackgroundContentPart.getString("song4");
+                        song5 = jsonWeatherBackgroundContentPart.getString("song5");
+                        plname = jsonWeatherBackgroundContentPart.getString("playlistname");
 
                         // get image name from JSON
-                        String image =jsonWeatherBackgroundContentPart.getString("image");
+                        String image = jsonWeatherBackgroundContentPart.getString("image");
 
                         // get resource id by image name
                         final int resourceImageId = resources.getIdentifier(image, "drawable", context.getPackageName());
@@ -304,50 +302,47 @@ public class MainActivity extends AppCompatActivity {
 
                         // get drawable by resourceImageid
                         Drawable drawable = resources.getDrawable(resourceImageId);
-                        Toast.makeText(getApplicationContext(),song1,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), song1, Toast.LENGTH_SHORT).show();
 
                         // backgroungImage.setImageResource(R.drawable.rain);
                         backgroungImage.setBackgroundResource(resourceImageId);
 
                     }
 
-                    if (!weatherName.equals("") ){
+                    if (!weatherName.equals("")) {
 
-                        weatherBackgroundInformation += weatherName+"\r\n";
-                        Log.i("weather information",weatherBackgroundInformation);
+                        weatherBackgroundInformation += weatherName + "\r\n";
+                        Log.i("weather information", weatherBackgroundInformation);
                     }
 
                 }
 
                 ////progress equalizer json
 
-                for (int i=0; i <playlistNameArray.length(); i++){
+                for (int i = 0; i < playlistNameArray.length(); i++) {
 
                     JSONObject playlistNameArrayPart = playlistNameArray.getJSONObject(i);
 
                     String name = playlistNameArrayPart.getString("name");
 
-                    if(plname.equals(name)  ){
+                    if (plname.equals(name)) {
 
 
                         songName.setText(plname);
-                          allprogress1 =playlistNameArrayPart.getInt("progress1");
-                          allprogress2 =playlistNameArrayPart.getInt("progress2");
-                          allprogress3 =playlistNameArrayPart.getInt("progress3");
-                          allprogress4 =playlistNameArrayPart.getInt("progress4");
-                          allprogress5 =playlistNameArrayPart.getInt("progress5");
-                        Log.i("progressjson","info");
+                        allprogress1 = playlistNameArrayPart.getInt("progress1");
+                        allprogress2 = playlistNameArrayPart.getInt("progress2");
+                        allprogress3 = playlistNameArrayPart.getInt("progress3");
+                        allprogress4 = playlistNameArrayPart.getInt("progress4");
+                        allprogress5 = playlistNameArrayPart.getInt("progress5");
+                        Log.i("progressjson", "info");
 
-                        float log1 = (float) (Math.log(100 - (allprogress1-1)) / Math.log(100));
-                        float log2 = (float) (Math.log(100 - (allprogress2-1)) / Math.log(100));
-                        float log3 = (float) (Math.log(100 - (allprogress3-1)) / Math.log(100));
-                        float log4 = (float) (Math.log(100 - (allprogress4-1)) / Math.log(100));
-                        float log5 = (float) (Math.log(100 - (allprogress5-1)) / Math.log(100));
+                        float log1 = (float) (Math.log(100 - (allprogress1 - 1)) / Math.log(100));
+                        float log2 = (float) (Math.log(100 - (allprogress2 - 1)) / Math.log(100));
+                        float log3 = (float) (Math.log(100 - (allprogress3 - 1)) / Math.log(100));
+                        float log4 = (float) (Math.log(100 - (allprogress4 - 1)) / Math.log(100));
+                        float log5 = (float) (Math.log(100 - (allprogress5 - 1)) / Math.log(100));
 
                         playbutton.setBackgroundResource(R.drawable.pausebutton);
-
-
-
 
 
                         // get resource id by song song
@@ -357,27 +352,27 @@ public class MainActivity extends AppCompatActivity {
                         final int resourceSongId4 = resources.getIdentifier(song4, "raw", context.getPackageName());
                         final int resourceSongId5 = resources.getIdentifier(song5, "raw", context.getPackageName());
 
-                        Toast.makeText(getApplicationContext(),allprogress1+"hello",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), allprogress1 + "hello", Toast.LENGTH_SHORT).show();
 
 
-                        mediaPlayerRain = MediaPlayer.create(getApplicationContext(),resourceSongId1);
+                        mediaPlayerRain = MediaPlayer.create(getApplicationContext(), resourceSongId1);
                         mediaPlayerRain.start();
                         mediaPlayerRain.setVolume(1 - log1, 1 - log1);
 
-                        mediaPlayerRain2 = MediaPlayer.create(getApplicationContext(),resourceSongId2);
+                        mediaPlayerRain2 = MediaPlayer.create(getApplicationContext(), resourceSongId2);
                         mediaPlayerRain2.start();
                         mediaPlayerRain2.setVolume(1 - log2, 1 - log2);
 
 
-                        mediaPlayerRain3 = MediaPlayer.create(getApplicationContext(),resourceSongId3);
+                        mediaPlayerRain3 = MediaPlayer.create(getApplicationContext(), resourceSongId3);
                         mediaPlayerRain3.start();
                         mediaPlayerRain3.setVolume(1 - log3, 1 - log3);
 
-                        mediaPlayerRain4 = MediaPlayer.create(getApplicationContext(),resourceSongId4);
+                        mediaPlayerRain4 = MediaPlayer.create(getApplicationContext(), resourceSongId4);
                         mediaPlayerRain4.start();
                         mediaPlayerRain4.setVolume(1 - log4, 1 - log4);
 
-                        mediaPlayerRain5 = MediaPlayer.create(getApplicationContext(),resourceSongId5);
+                        mediaPlayerRain5 = MediaPlayer.create(getApplicationContext(), resourceSongId5);
                         mediaPlayerRain5.start();
                         mediaPlayerRain5.setVolume(1 - log5, 1 - log5);
 
@@ -386,8 +381,8 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-            }catch (Exception e){
-                Log.i("withObject","hi");
+            } catch (Exception e) {
+                Log.i("withObject", "hi");
                 e.printStackTrace();
             }
 
@@ -402,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                JSONArray coordInfoArray = new JSONArray(coordInfo);
 
-                JSONObject coordObject= new JSONObject(coordInfo);
+                JSONObject coordObject = new JSONObject(coordInfo);
                 coordTempInformation = coordObject.getString("temp");
                 String coordPressureInformation = coordObject.getString("pressure");
                 String coordHumidityInformation = coordObject.getString("humidity");
@@ -411,21 +406,20 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("tempInt", String.valueOf(tempInt));
 
 
-
-                if(!coordTempInformation.equals("")) {
-                   // coordTextView.setText("temp:"+coordTempInformation+"\u2103"+"\rpressure:"+coordPressureInformation+""+"\nHumidity:"+coordHumidityInformation);
+                if (!coordTempInformation.equals("")) {
+                    // coordTextView.setText("temp:"+coordTempInformation+"\u2103"+"\rpressure:"+coordPressureInformation+""+"\nHumidity:"+coordHumidityInformation);
                     temp.setText(coordTempInformation);
 //                    Typeface typeface = getResources().getFont(R.font.robotoslabthin);
 //                    temp.setTypeface(typeface);
 
-                    humidty.setText(coordHumidityInformation+"%");
+                    humidty.setText(coordHumidityInformation + "%");
 
-                }else {
-                    Toast.makeText(getApplicationContext(),"could not find coord Information :",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "could not find coord Information :", Toast.LENGTH_LONG).show();
                 }
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"could not load the coord information :",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "could not load the coord information :", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
 
             }
@@ -439,27 +433,26 @@ public class MainActivity extends AppCompatActivity {
 
 //                JSONArray coordInfoArray = new JSONArray(coordInfo);
 
-                JSONObject coordObject= new JSONObject(coordInfo);
+                JSONObject coordObject = new JSONObject(coordInfo);
                 String coordWindInformation = coordObject.getString("speed");
 
 
-                if(!coordWindInformation.equals("")) {
+                if (!coordWindInformation.equals("")) {
 
-                    double kms = Double.parseDouble(coordWindInformation)* 3.6;
+                    double kms = Double.parseDouble(coordWindInformation) * 3.6;
 
                     String test = String.format("%.02f", kms);
 
 
-                    wind.setText(test+"Km/h");
+                    wind.setText(test + "Km/h");
 
 
-
-                }else {
-                    Toast.makeText(getApplicationContext(),"could not find coord Information :",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "could not find coord Information :", Toast.LENGTH_LONG).show();
                 }
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"could not load the coord information :",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "could not load the coord information :", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
 
             }
@@ -473,22 +466,21 @@ public class MainActivity extends AppCompatActivity {
 
 //                JSONArray coordInfoArray = new JSONArray(coordInfo);
 
-                JSONObject coordObject= new JSONObject(coordInfo);
+                JSONObject coordObject = new JSONObject(coordInfo);
                 String coordCloudInformation = coordObject.getString("all");
 
 
-                if(!coordCloudInformation.equals("")) {
+                if (!coordCloudInformation.equals("")) {
 
-                    clouds.setText(coordCloudInformation+"%");
+                    clouds.setText(coordCloudInformation + "%");
 
 
-
-                }else {
-                    Toast.makeText(getApplicationContext(),"could not find coord Information :",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "could not find coord Information :", Toast.LENGTH_LONG).show();
                 }
 
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(),"could not load the coord information :",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "could not load the coord information :", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
 
             }
@@ -499,11 +491,11 @@ public class MainActivity extends AppCompatActivity {
 
     //reading json from assets
     public String loadJSONFromAsset(String s) {
-        Log.i("infunction","heloo");
+        Log.i("infunction", "heloo");
         String json = null;
 
         try {
-            Log.i("try","hi");
+            Log.i("try", "hi");
             InputStream is = getAssets().open(s);
 
             int size = is.available();
@@ -515,17 +507,17 @@ public class MainActivity extends AppCompatActivity {
             is.close();
 
             json = new String(buffer, "UTF-8");
-            Log.d("intry","heloo");
+            Log.d("intry", "heloo");
 //            Toast.makeText(this, "Json"+json, Toast.LENGTH_SHORT).show();
 
 
         } catch (IOException ex) {
             ex.printStackTrace();
-            Log.i("incatch","heloo");
+            Log.i("incatch", "heloo");
             return null;
         }
-        Log.i("jsonfile",json);
-        Log.i("beforeReturn","heloo");
+        Log.i("jsonfile", json);
+        Log.i("beforeReturn", "heloo");
 
         return json;
 
@@ -549,13 +541,11 @@ public class MainActivity extends AppCompatActivity {
         songName = findViewById(R.id.songName);
         songTheme1 = findViewById(R.id.songTheme);
         try {
-            SecondActivity.imageId=R.drawable.rectangle;
+            SecondActivity.imageId = R.drawable.rectangle;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         songList.setOnClickListener(new View.OnClickListener() {
@@ -580,30 +570,26 @@ public class MainActivity extends AppCompatActivity {
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        playbutton= findViewById(R.id.playbutton);
+        playbutton = findViewById(R.id.playbutton);
 
 
-       // getWeatherButton=findViewById(R.id.getWeatherButton);
+        // getWeatherButton=findViewById(R.id.getWeatherButton);
         backgroungImage = findViewById(R.id.backgroundImage);
-       // equilizer=findViewById(R.id.equilizer);
+        // equilizer=findViewById(R.id.equilizer);
         // hazeImage = findViewById(R.id.hazeImage);
 
 //        cityName = findViewById(R.id.cityName);
         weatherTextView = findViewById(R.id.weatherTextView);
-        coordTextView = findViewById(R.id. coordTextView);
+        coordTextView = findViewById(R.id.coordTextView);
 
         //current location
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         temp = findViewById(R.id.temp);
-       // currentLocation = findViewById(R.id.currentLocation);
+        // currentLocation = findViewById(R.id.currentLocation);
         humidty = findViewById(R.id.humidity);
         wind = findViewById(R.id.wind);
         clouds = findViewById(R.id.clouds);
-
-
-
-
 
 
 //
@@ -640,8 +626,6 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-
-
 
 
         } catch (JSONException e) {
@@ -700,7 +684,7 @@ public class MainActivity extends AppCompatActivity {
         }
 //
 //        cityName.setText(addresss, TextView.BufferType.EDITABLE);
-        autoSuggestion.setText(addresss,TextView.BufferType.EDITABLE);
+        autoSuggestion.setText(addresss, TextView.BufferType.EDITABLE);
 
 //        getWeatherButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -750,7 +734,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
 
                         DownloadTask task = new DownloadTask();
-                        Log.i("autosuggestion","inside");
+                        Log.i("autosuggestion", "inside");
                         mediaPlayerRain.reset();
                         mediaPlayerRain2.reset();
                         mediaPlayerRain3.reset();
@@ -765,12 +749,12 @@ public class MainActivity extends AppCompatActivity {
 
                         InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         mgr.hideSoftInputFromWindow(autoSuggestion.getWindowToken(), 0);
-                    } catch(Exception e){
+                    } catch (Exception e) {
 
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.post(new Runnable() {
                             public void run() {
-                                Toast t = Toast.makeText(MainActivity.this,"searching for gps :",Toast.LENGTH_SHORT);
+                                Toast t = Toast.makeText(MainActivity.this, "searching for gps :", Toast.LENGTH_SHORT);
                                 t.show();
                             }
                         });
@@ -783,8 +767,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
         try {
             SecondActivity.playList1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -792,13 +774,13 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         SecondActivity.songTheme2.setBackgroundResource(R.drawable.rectangle);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -813,13 +795,13 @@ public class MainActivity extends AppCompatActivity {
 //                    SecondActivity.volumeSeekBar5.setProgress(2);
                     try {
                         SecondActivity.songTheme2.setBackgroundResource(R.drawable.rectangle2);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
@@ -829,23 +811,21 @@ public class MainActivity extends AppCompatActivity {
 
                     try {
                         SecondActivity.songTheme2.setBackgroundResource(R.drawable.rectangle3);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         playbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try {
-                    if(mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()){
+                    if (mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()) {
                         mediaPlayerRain.pause();
                         mediaPlayerRain2.pause();
                         mediaPlayerRain3.pause();
@@ -854,10 +834,10 @@ public class MainActivity extends AppCompatActivity {
                         playbutton.setBackgroundResource(R.drawable.playbutton);
                         try {
                             SecondActivity.playButton.setBackgroundResource(R.drawable.playbutton);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                    }else{
+                    } else {
                         mediaPlayerRain.start();
                         mediaPlayerRain2.start();
                         mediaPlayerRain3.start();
@@ -866,12 +846,12 @@ public class MainActivity extends AppCompatActivity {
                         playbutton.setBackgroundResource(R.drawable.pausebutton);
                         try {
                             SecondActivity.playButton.setBackgroundResource(R.drawable.pausebutton);
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 isPlayingBoolean = !isPlayingBoolean;
@@ -913,7 +893,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void mediaStop(){
+    public void mediaStop() {
         mediaPlayerRain.stop();
         mediaPlayerRain2.stop();
         mediaPlayerRain3.stop();

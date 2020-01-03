@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.session.MediaSessionManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -20,6 +21,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MediaPlayerService extends Service implements MediaPlayer.OnCompletionListener,
@@ -161,7 +163,7 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
                 for (MediaPlayer comp : components) {
                     if (!comp.isPlaying())
                         comp.start();
-                        comp.setVolume(1.0f, 1.0f);
+                    comp.setVolume(1.0f, 1.0f);
                 }
                 break;
             case AudioManager.AUDIOFOCUS_LOSS:
@@ -212,6 +214,19 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
             comp.setOnSeekCompleteListener(this);
             comp.setOnInfoListener(this);
             comp.prepareAsync();
+        }
+    }
+
+    private void setDataSource(ArrayList<String> songList) {
+        if (songList.size() == components.size()) {
+            for (int i = 0; i < components.size(); i++) {
+                MediaPlayer comp = components.get(i);
+                if (comp == null) {
+                    comp = new MediaPlayer();
+                    comp = MediaPlayer.create(getApplicationContext(), Uri.parse("file:///android_asset/" + songList.get(i)));
+                }
+
+            }
         }
     }
 
@@ -348,6 +363,25 @@ public class MediaPlayerService extends Service implements MediaPlayer.OnComplet
         } else if (actionString.equalsIgnoreCase(ACTION_STOP)) {
             transportControls.stop();
         }
+    }
+
+    private BroadcastReceiver playNewAudio = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            stopMedia();
+            for (MediaPlayer comp : components) {
+                comp.reset();
+            }
+            initMediaPlayer();
+            setDataSource(new ArrayList<>(Arrays.asList("song1.mp3", "song2.mp3", "song3.mp3", "song4.mp3", "song5.mp3")));
+        }
+    };
+
+    private void register_playNewAudio() {
+        //Register playNewMedia receiver
+        IntentFilter filter = new IntentFilter("com.kitebe.wave.playAudio");
+        registerReceiver(playNewAudio, filter);
     }
 
 }

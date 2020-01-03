@@ -1,44 +1,59 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ListPreference
-        android:defaultValue="1"
-        android:entries="@array/sound_profiles"
-        android:entryValues="@array/sp"
-        android:key="sound_profile_list_pref"
-        android:title="Selected sound profile" />
+    <PreferenceCategory android:title="@string/title_preset_category">
 
-    <PreferenceCategory android:title="Levels">
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/sound_profiles"
+            android:entryValues="@array/sp"
+            android:key="@string/key_sound_profile_list"
+            android:summary="%s"
+            android:title="@string/title_sel_profile" />
 
-        <SeekBarPreference
-            android:defaultValue="100"
-            android:key="sl_one"
-            android:max="100"
-            android:title="Chirp - volume" />
+    </PreferenceCategory>
 
-        <SeekBarPreference
-            android:defaultValue="100"
-            android:key="sl_two"
-            android:max="100"
-            android:title="Wind - volume" />
+    <PreferenceCategory android:title="@string/title_custom_category">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_enable_custom_sl"
+            android:title="@string/title_custom_sl_enable" />
 
         <SeekBarPreference
             android:defaultValue="100"
-            android:key="sl_three"
+            android:dependency="@string/key_enable_custom_sl"
+            android:key="@string/key_custom_sl_one"
             android:max="100"
-            android:title="Rain - volume" />
+            android:title="@string/title_custom_sl_one" />
 
         <SeekBarPreference
             android:defaultValue="100"
-            android:key="sl_four"
+            android:dependency="@string/key_enable_custom_sl"
+            android:key="@string/key_custom_sl_two"
             android:max="100"
-            android:title="River - volume" />
+            android:title="@string/title_custom_sl_two" />
 
         <SeekBarPreference
             android:defaultValue="100"
-            android:key="sl_five"
+            android:dependency="@string/key_enable_custom_sl"
+            android:key="@string/key_custom_sl_three"
             android:max="100"
-            android:title="Environment - volume" />
+            android:title="@string/title_custom_sl_three" />
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:dependency="@string/key_enable_custom_sl"
+            android:key="@string/key_custom_sl_four"
+            android:max="100"
+            android:title="@string/title_custom_sl_four" />
+
+        <SeekBarPreference
+            android:defaultValue="100"
+            android:dependency="@string/key_enable_custom_sl"
+            android:key="@string/key_custom_sl_five"
+            android:max="100"
+            android:title="@string/title_custom_sl_five" />
 
     </PreferenceCategory>
 

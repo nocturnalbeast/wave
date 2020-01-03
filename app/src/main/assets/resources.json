@@ -1,0 +1,54 @@
+{
+    "profile_levels": [
+        {"id": 1, "levels": [10, 20, 30, 40, 50]},
+        {"id": 2, "levels": [10, 20, 30, 40, 50]},
+        {"id": 3, "levels": [10, 20, 30, 40, 50]},
+        {"id": 4, "levels": [10, 20, 30, 40, 50]},
+        {"id": 5, "levels": [10, 20, 30, 40, 50]},
+        {"id": 6, "levels": [10, 20, 30, 40, 50]},
+        {"id": 7, "levels": [10, 20, 30, 40, 50]},
+        {"id": 8, "levels": [10, 20, 30, 40, 50]},
+        {"id": 9, "levels": [10, 20, 30, 40, 50]},
+        {"id": 10, "levels": [10, 20, 30, 40, 50]},
+        {"id": 11, "levels": [10, 20, 30, 40, 50]},
+        {"id": 12, "levels": [10, 20, 30, 40, 50]}
+    ],
+
+    "weather_specific": [
+        {
+            "name": "rain", 
+            "bg_image": "bg_rain.png",
+            "audio_parts": ["rain_one.mp3", "rain_two.mp3", "rain_three.mp3", "rain_four.mp3", "rain_five.mp3"]
+        },
+        {
+            "name": "clouds", 
+            "bg_image": "bg_clouds.png",
+            "audio_parts": ["clouds_one.mp3", "clouds_two.mp3", "clouds_three.mp3", "clouds_four.mp3", "clouds_five.mp3"]
+        },
+        {
+            "name": "thunderstorm", 
+            "bg_image": "bg_thunderstorm.png",
+            "audio_parts": ["thunderstorm_one.mp3", "thunderstorm_two.mp3", "thunderstorm_three.mp3", "thunderstorm_four.mp3", "thunderstorm_five.mp3"]
+        },
+        {
+            "name": "haze", 
+            "bg_image": "bg_haze.png",
+            "audio_parts": ["haze_one.mp3", "haze_two.mp3", "haze_three.mp3", "haze_four.mp3", "haze_five.mp3"]
+        },
+        {
+            "name": "clear", 
+            "bg_image": "bg_clear.png",
+            "audio_parts": ["clear_one.mp3", "clear_two.mp3", "clear_three.mp3", "clear_four.mp3", "clear_five.mp3"]
+        },
+        {
+            "name": "snow", 
+            "bg_image": "bg_snow.png",
+            "audio_parts": ["snow_one.mp3", "snow_two.mp3", "snow_three.mp3", "snow_four.mp3", "snow_five.mp3"]
+        },
+        {
+            "name": "drizzle", 
+            "bg_image": "bg_drizzle.png",
+            "audio_parts": ["drizzle_one.mp3", "drizzle_two.mp3", "drizzle_three.mp3", "drizzle_four.mp3", "drizzle_five.mp3"]
+        }
+    ]
+}

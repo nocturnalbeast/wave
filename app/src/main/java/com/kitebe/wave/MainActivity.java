@@ -17,7 +17,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,26 +48,15 @@ import android.view.View.OnKeyListener;
 public class MainActivity extends AppCompatActivity {
 
     AutoCompleteTextView autoSuggestion;
-    TextView weatherTextView, temp, humidty, wind, clouds;
+    TextView weatherTextView, temp, humidity, wind, clouds;
     TextView songName;
     TextView coordTextView;
-    static MediaPlayer mediaPlayerRain, mediaPlayerRain2, mediaPlayerRain3, mediaPlayerRain4, mediaPlayerRain5;
     ConstraintLayout backgroundImage;
-    String jsonMain;
-    static String plname;
-    static String weatherName;
-    Button getWeatherButton, equilizer;
-    String song1, song2, song3, song4, song5;
     static ImageButton songTheme;
-    static Boolean intentBoolean = false;
-    static String coordTempInformation;
-    static Button playbutton;
-    static boolean isPlayingBoolean = false;
-    static int allprogress1, allprogress2, allprogress3, allprogress4, allprogress5;
-    boolean loop;
+    static Button playButton;
     LocationManager locationManager;
     LocationListener locationListener;
-    String addresss;
+    String address;
     ImageButton songList;
 
     @Override
@@ -88,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        playbutton = findViewById(R.id.playbutton);
+        playButton = findViewById(R.id.playbutton);
         backgroundImage = findViewById(R.id.backgroundImage);
         weatherTextView = findViewById(R.id.weatherTextView);
         coordTextView = findViewById(R.id.coordTextView);
@@ -97,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         temp = findViewById(R.id.temp);
         // currentLocation = findViewById(R.id.currentLocation);
-        humidty = findViewById(R.id.humidity);
+        humidity = findViewById(R.id.humidity);
         wind = findViewById(R.id.wind);
         clouds = findViewById(R.id.clouds);
 
@@ -163,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        autoSuggestion.setText(addresss, TextView.BufferType.EDITABLE);
+        autoSuggestion.setText(address, TextView.BufferType.EDITABLE);
         autoSuggestion.setOnKeyListener(new OnKeyListener() {
             public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
                 String query_result;
@@ -190,29 +178,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        playbutton.setOnClickListener(new View.OnClickListener() {
+        playButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                try {
-                    if (mediaPlayerRain.isPlaying() || mediaPlayerRain2.isPlaying() || mediaPlayerRain3.isPlaying() || mediaPlayerRain4.isPlaying() || mediaPlayerRain5.isPlaying()) {
-                        mediaPlayerRain.pause();
-                        mediaPlayerRain2.pause();
-                        mediaPlayerRain3.pause();
-                        mediaPlayerRain4.pause();
-                        mediaPlayerRain5.pause();
-                        playbutton.setBackgroundResource(R.drawable.playbutton);
-                    } else {
-                        mediaPlayerRain.start();
-                        mediaPlayerRain2.start();
-                        mediaPlayerRain3.start();
-                        mediaPlayerRain4.start();
-                        mediaPlayerRain5.start();
-                        playbutton.setBackgroundResource(R.drawable.pausebutton);
-
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                isPlayingBoolean = !isPlayingBoolean;
+                // TODO : add play call here
             }
         });
     }
@@ -236,14 +204,14 @@ public class MainActivity extends AppCompatActivity {
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         String query_result;
         try {
-            addresss = "Could not find address";
+            address = "Could not find address";
             List<Address> listAddresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (listAddresses != null && listAddresses.size() > 0) {
                 Log.i("PlaceInfo", listAddresses.get(0).toString());
-                addresss = "Address: \n";
+                address = "Address: \n";
                 if (listAddresses.get(0).getSubLocality() != null) {
-                    addresss = listAddresses.get(0).getSubLocality() + "\n";
-                    Log.i("current location:", addresss);
+                    address = listAddresses.get(0).getSubLocality() + "\n";
+                    Log.i("current location:", address);
                     try {
                         // TODO: add call to reset mpservice here!
                         DownloadTask task = new DownloadTask();
@@ -262,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            Log.i("current location:", addresss);
+            Log.i("current location:", address);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NullPointerException e) {
@@ -270,61 +238,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    //reading json from assets
+    // reading json from assets
     public String loadJSONFromAsset(String s) {
-        Log.i("infunction", "heloo");
         String json = null;
-
         try {
-            Log.i("try", "hi");
             InputStream is = getAssets().open(s);
-
             int size = is.available();
-
             byte[] buffer = new byte[size];
-
             is.read(buffer);
-
             is.close();
-
             json = new String(buffer, "UTF-8");
-            Log.d("intry", "heloo");
-//            Toast.makeText(this, "Json"+json, Toast.LENGTH_SHORT).show();
-
-
         } catch (IOException ex) {
             ex.printStackTrace();
-            Log.i("incatch", "heloo");
             return null;
         }
-        Log.i("jsonfile", json);
-        Log.i("beforeReturn", "heloo");
-
         return json;
-
-
     }
-
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-//        mediaPlayerRain.stop();
-//        mediaPlayerRain2.stop();
-//        mediaPlayerRain3.stop();
-//        mediaPlayerRain4.stop();//
-//        mediaPlayerRain5.stop();
-        mediaStop();
+        // TODO : add mediaplayer.stop
         locationManager.removeUpdates(locationListener);
 
     }
 
     protected void onStop() {
         super.onStop();
-
-//       mediaStop();
+        // TODO : add mediaplayer.stop
         locationManager.removeUpdates(locationListener);
 
     }
@@ -332,21 +273,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-//        mediaPlayerRain.stop();
-//        mediaPlayerRain2.stop();
-//        mediaPlayerRain3.stop();
-//        mediaPlayerRain4.stop();
-//        mediaPlayerRain5.stop();
+        super.onStop();
+        // TODO : add mediaplayer.stop
         locationManager.removeUpdates(locationListener);
 
-    }
-
-    public void mediaStop() {
-        mediaPlayerRain.stop();
-        mediaPlayerRain2.stop();
-        mediaPlayerRain3.stop();
-        mediaPlayerRain4.stop();
-        mediaPlayerRain5.stop();
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
